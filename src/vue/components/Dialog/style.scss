@@ -1,0 +1,41 @@
+$color: #3da0db;
+
+.container {
+  :global {
+    .el-dialog__header {
+      padding-top: 0;
+      padding-bottom: 0;
+      background: $color;
+      height: 40px;
+      line-height: 40px;
+
+      .el-dialog__title {
+        font-size: 14px;
+        color: #fff;
+      }
+
+      .el-dialog__headerbtn {
+        top: 11px;
+
+        .el-dialog__close {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+
+    :global {
+      .el-button--default {
+        min-width: 72px;
+        background-color: #fff;
+        color: #3da0db;
+        border-color: #3da0db;
+      }
+    }
+  }
+}
