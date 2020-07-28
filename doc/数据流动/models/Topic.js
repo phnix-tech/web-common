@@ -1,5 +1,5 @@
 export default class Topic {
-  constructor(
+  constructor (
     {
       name,
       hot,
@@ -17,19 +17,19 @@ export default class Topic {
     this._img = img || imageUrl;
   }
 
-  name() {
+  name () {
     return this._name;
   }
 
-  hot() {
+  hot () {
     return this._hot;
   }
 
-  desc() {
+  desc () {
     return this._desc;
   }
 
-  img(isMobile) {
+  img (isMobile) {
     return "https://gcatest.garmin.com.tw/images/" + (isMobile ? "" : "frame/") + this._img;
   }
 }

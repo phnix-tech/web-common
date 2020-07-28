@@ -4,27 +4,26 @@
       <div class="cover-box">
         <img
           alt="cover image"
-          :src="topic.img(isMobile())"/>
+          :src="topic.img(isMobile())">
       </div>
-      <div class="bg-mask"></div>
+      <div class="bg-mask"/>
       <div class="rgt-box">
-        <div class="name x-wb-bw x-tac">{{topic.name()}}</div>
+        <div class="name x-wb-bw x-tac">{{ topic.name() }}</div>
         <div class="hot x-tac">
-          <span class="num">{{topic.hot()}}</span>热度
+          <span class="num">{{ topic.hot() }}</span>热度
         </div>
         <div
           class="desc x-pre-content x-pr"
-          id="js-txt-topic-desc">{{topic.desc()}}<div
-          class="btn-expand"
-          :class="expandCls"
-          v-show="showBtnExpand"><a
-          href="javascript:void(0)"
-          @click="expand">{{expandTxt}}</a></div></div>
+          id="js-txt-topic-desc">{{ topic.desc() }}<div
+            class="btn-expand"
+            :class="expandCls"
+            v-show="showBtnExpand"><a
+              href="javascript:void(0)"
+              @click="expand">{{ expandTxt }}</a></div></div>
         <div class="x-tac">
           <a
-            @click="joinTopic()"
-            class="btn-join"
-          >
+            @click="joinTopic"
+            class="btn-join">
             加入讨论
           </a>
         </div>
@@ -96,7 +95,7 @@
         return fn.browser.isMobile();
       },
       joinTopic () {
-
+        // disable eslint
       }
     }
   };

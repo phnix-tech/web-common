@@ -1,5 +1,5 @@
 export default class Post {
-  constructor(
+  constructor (
     {
       avatar,
       username,
@@ -26,21 +26,21 @@ export default class Post {
     this._comment = comment || commentNum || 0;
   }
 
-  avatar() {
+  avatar () {
     return this._avatar;
   }
 
-  username() {
+  username () {
     return this._username;
   }
 
-  level() {
+  level () {
     return "等级 " + this._level;
   }
 
-  content() {
-    let content = this._content || "",
-      div = document.createElement("div");
+  content () {
+    let content = this._content || "";
+    const div = document.createElement("div");
 
     // html escape
     div.innerText = content;
@@ -49,15 +49,15 @@ export default class Post {
     return content;
   }
 
-  hasImages() {
+  hasImages () {
     return !!this._images;
   }
 
-  images() {
+  images () {
     return this._images;
   }
 
-  datetime() {
+  datetime () {
     const date = new Date(this._datetime);
     // 2019/11/13 0:30:30
     return [
@@ -71,11 +71,11 @@ export default class Post {
     ].join(":");
   }
 
-  like() {
+  like () {
     return this._like;
   }
 
-  comment() {
+  comment () {
     return this._comment;
   }
 }

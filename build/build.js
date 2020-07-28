@@ -23,8 +23,7 @@ function clean () {
   _logging.log("==============clean up build output files==============");
 
   [
-    origResPath,
-    commonDestPath
+    origResPath
   ].forEach(dir => {
     dir = path.join(_dirname, dir);
     if (fs.existsSync(dir)) {
