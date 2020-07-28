@@ -7,3 +7,6 @@
 *.ntvs*
 *.njsproj
 *.sln
+
+# svn directory
+.svn
