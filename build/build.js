@@ -18,12 +18,14 @@ let
 
 /**
  * clean up build output files
+ * @param {string|Array<string>} paths
  */
-function clean () {
+function clean (paths) {
   _logging.log("==============clean up build output files==============");
 
   [
-    origResPath
+    origResPath,
+    ...((Array.isArray(paths) ? paths : [paths]).filter(item => item))
   ].forEach(dir => {
     dir = path.join(_dirname, dir);
     if (fs.existsSync(dir)) {
