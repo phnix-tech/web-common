@@ -1,4 +1,6 @@
 .DS_Store
+node_modules/
+dist/
 
 # Editor directories and files
 .idea
@@ -10,3 +12,10 @@
 
 # svn directory
 .svn
+
+# ignore eslint cache files
+build/lint/.cache_*
+build/lint/.eslintcache
+
+# ignore stylelint cache files
+build/lint/.stylelintcache*
