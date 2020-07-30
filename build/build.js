@@ -18,9 +18,11 @@ let
 
 /**
  * clean up build output files
+ * 默认下删除`./dist`目录
  * @param {string|Array<string>} paths
+ * 额外删除的目录路径，路径为相对路径，相对于项目根路径
  */
-function clean (paths) {
+function clean (paths = []) {
   _logging.log("==============clean up build output files==============");
 
   [
