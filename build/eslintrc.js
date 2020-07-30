@@ -1,9 +1,9 @@
 /**
  * eslint vue规则配置
  * 依赖包(注意对等版本依赖)：
- * eslint(5.9.0+)
- * eslint-plugin-vue(6.1.2+)
+ * eslint(6.8.0+)
  * babel-eslint(10.0.3+)
+ * eslint-plugin-vue(6.1.2+)
  * @see https://eslint.vuejs.org
  * @param {object|undefined} dftCfg
  * @returns {object}
