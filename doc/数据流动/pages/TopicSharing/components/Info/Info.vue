@@ -4,7 +4,7 @@
       <div class="cover-box">
         <img
           alt="cover image"
-          :src="topic.img(isMobile())">
+          :src="topic.img(isMobile())"/>
       </div>
       <div class="bg-mask"/>
       <div class="rgt-box">

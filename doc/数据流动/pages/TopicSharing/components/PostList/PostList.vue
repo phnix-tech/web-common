@@ -12,7 +12,7 @@
             <img
               class="avatar"
               :src="post.avatar()"
-              alt="user avatar">
+              alt="user avatar"/>
           </div>
           <div class="rgt-box">
             <div class="x-wb-bw">{{ post.username() }}</div>
@@ -27,7 +27,7 @@
             v-for="image in post.images()"
             :key="image"
             alt="topic image"
-            :src="image">
+            :src="image"/>
         </div>
         <div class="bottom-box">
           <div class="bottom-item">

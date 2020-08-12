@@ -16,6 +16,8 @@ module.exports = function (dftCfg) {
   cfg.globals = cfg.globals || {};
   // 修改4个空格缩进为2个空格
   cfg.rules.indent[1] = 2;
+  // html自闭和标签统一斜线
+  cfg.rules["vue/html-self-closing"][1].html["void"] = "always";
   Object.assign(cfg.rules, {
     // 该规则不能正确解析export default from语法
     "object-curly-spacing": "off"
