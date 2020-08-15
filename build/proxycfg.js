@@ -74,11 +74,14 @@ function cfgCustomizedProxy (
         return new RegExp(regexpPath).test(pathname);
       },
       target: host,
-      secure: false
+      secure: false,
+      changeOrigin: true
     };
 
-    if (customizedRewriteFrom !== undefined &&
-      customizedRewriteTo !== undefined) {
+    if (
+      customizedRewriteFrom !== undefined &&
+      customizedRewriteTo !== undefined
+    ) {
       // 去除前后空格
       customizedRewriteFrom = customizedRewriteFrom.trim();
       customizedRewriteTo = customizedRewriteTo.trim();
@@ -140,11 +143,14 @@ function convert (proxyTable) {
     if (typeof options === "string") {
       options = {
         target: options,
-        secure: false
+        secure: false,
+        changeOrigin: true
       };
 
-      if (proxyRewriteFrom !== undefined &&
-        proxyRewriteTo !== undefined) {
+      if (
+        proxyRewriteFrom !== undefined &&
+        proxyRewriteTo !== undefined
+      ) {
         options[proxyRewriteFrom.trim()] = proxyRewriteTo.trim();
       }
     }
@@ -182,9 +188,21 @@ convert(dftProxyTable);
  * @type {{proxyTable(*=): *, proxyHost: *}}
  */
 module.exports = {
-  proxyTable (proxyTable) {
+  proxyTable (proxyTable, {
+    withDftProxyTable = true,
+    dftApiPrefix = "^/api/"
+  } = {}) {
+    const table = {};
+    if (withDftProxyTable) {
+      if (dftApiPrefix !== "^/api/") {
+        dftProxyTable[dftApiPrefix] = dftProxyTable["^/api/"];
+        delete dftProxyTable["^/api/"];
+      }
+      Object.assign(table, dftProxyTable);
+    }
+
     return {
-      ...dftProxyTable,
+      ...table,
       ...convert(proxyTable)
     };
   },
