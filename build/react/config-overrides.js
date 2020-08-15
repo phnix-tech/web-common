@@ -42,29 +42,30 @@ function webpack (config) {
 
 // react-scripts默认打开根地址`/`
 const WebpackDevServerUtils = require("react-dev-utils/WebpackDevServerUtils");
-if (
-  publicPath &&
-  publicPath !== "/" &&
-  /^\//.test(publicPath)
-) {
-  const {prepareUrls} = WebpackDevServerUtils;
-  WebpackDevServerUtils.prepareUrls = function (protocol, host, port) {
-    const obj = prepareUrls.apply(prepareUrls, arguments);
+const {prepareUrls} = WebpackDevServerUtils;
+WebpackDevServerUtils.prepareUrls = function (protocol, host, port) {
+  const urls = prepareUrls.apply(prepareUrls, arguments);
+  if (
+    publicPath &&
+    publicPath !== "/" &&
+    /^\//.test(publicPath)
+  ) {
     const url = publicPath.replace(/^\//, "");
     // 支持浏览器打开publicPath url
-    obj.lanUrlForTerminal = obj.lanUrlForTerminal + url;
-    obj.localUrlForTerminal = obj.localUrlForTerminal + url;
-    obj.localUrlForBrowser = obj.localUrlForBrowser + url;
-    if (
-      obj.lanUrlForConfig &&
-      !/^[a-zA-Z]+:\/\//.test(obj.lanUrlForConfig)
-    ) {
-      // lanUrlForConfig为IP地址，转换为location.origin格式
-      obj.lanUrlForConfig = `${protocol}://${obj.lanUrlForConfig}:${port}`;
-    }
-    return obj;
-  };
-}
+    urls.lanUrlForTerminal = urls.lanUrlForTerminal + url;
+    urls.localUrlForTerminal = urls.localUrlForTerminal + url;
+    urls.localUrlForBrowser = urls.localUrlForBrowser + url;
+  }
+
+  if (
+    urls.lanUrlForConfig &&
+    !/^[a-zA-Z]+:\/\//.test(urls.lanUrlForConfig)
+  ) {
+    // lanUrlForConfig为IP地址，转换为location.origin格式
+    urls.lanUrlForConfig = `${protocol}://${urls.lanUrlForConfig}:${port}`;
+  }
+  return urls;
+};
 
 /**
  * create-react-app配置重写
