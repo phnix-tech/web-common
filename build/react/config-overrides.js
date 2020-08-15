@@ -5,6 +5,7 @@ const
   proxycfg = require("../proxycfg");
 
 const bldCfg = require(resolve("./build/config"));
+const {publicPath} = bldCfg;
 
 // 修改CRA build输出目录
 // https://segmentfault.com/q/1010000019904178/
@@ -32,11 +33,37 @@ function webpack (config) {
   }
 
   // 使用相对路径引用资源文件, 默认为`/`
-  if (bldCfg.publicPath) {
-    config.output.publicPath = bldCfg.publicPath;
+  if (publicPath) {
+    config.output.publicPath = publicPath;
   }
 
   return config;
+}
+
+// react-scripts默认打开根地址`/`
+const WebpackDevServerUtils = require("react-dev-utils/WebpackDevServerUtils");
+if (
+  publicPath &&
+  publicPath !== "/" &&
+  /^\//.test(publicPath)
+) {
+  const {prepareUrls} = WebpackDevServerUtils;
+  WebpackDevServerUtils.prepareUrls = function (protocol, host, port) {
+    const obj = prepareUrls.apply(prepareUrls, arguments);
+    const url = publicPath.replace(/^\//, "");
+    // 支持浏览器打开publicPath url
+    obj.lanUrlForTerminal = obj.lanUrlForTerminal + url;
+    obj.localUrlForTerminal = obj.localUrlForTerminal + url;
+    obj.localUrlForBrowser = obj.localUrlForBrowser + url;
+    if (
+      obj.lanUrlForConfig &&
+      !/^[a-zA-Z]+:\/\//.test(obj.lanUrlForConfig)
+    ) {
+      // lanUrlForConfig为IP地址，转换为location.origin格式
+      obj.lanUrlForConfig = `${protocol}://${obj.lanUrlForConfig}:${port}`;
+    }
+    return obj;
+  };
 }
 
 /**
@@ -75,10 +102,11 @@ module.exports = function ({
         });
         // Create the default config by calling configFunction with the proxy/allowedHost parameters
         const config = configFunction(proxy, allowedHost);
-        if (bldCfg.publicPath) {
+        // react-scripts开发服务器默认强制serve在根地址`/`
+        if (publicPath) {
           // webpack dev server publicPath必须为绝对路径
           // https://webpack.js.org/configuration/dev-server/#devserverpublicpath-
-          config.publicPath = bldCfg.publicPath.replace(/^\.\/?/, "/");
+          config.publicPath = publicPath.replace(/^\.\/?/, "/");
         }
         logging.info("webpack dev server config", config);
 
