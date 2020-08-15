@@ -59,10 +59,11 @@ WebpackDevServerUtils.prepareUrls = function (protocol, host, port) {
 
   if (
     urls.lanUrlForConfig &&
-    !/^[a-zA-Z]+:\/\//.test(urls.lanUrlForConfig)
+    urls.lanUrlForConfig.indexOf(":") !== "-1"
   ) {
-    // lanUrlForConfig为IP地址，转换为location.origin格式
-    urls.lanUrlForConfig = `${protocol}://${urls.lanUrlForConfig}:${port}`;
+    // https://webpack.js.org/configuration/dev-server/#devserverpublic
+    // lanUrlForConfig为IP地址无端口，会传递给webpack-dev-server public选项
+    urls.lanUrlForConfig = `${urls.lanUrlForConfig}:${port}`;
   }
   return urls;
 };
