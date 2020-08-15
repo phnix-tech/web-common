@@ -47,21 +47,21 @@ function webpack (config) {
 module.exports = function ({
   apiPrefix = undefined
 } = {}) {
-  // 统一vue config proxy格式
-  if (apiPrefix && !/^\^/.test(apiPrefix)) {
-    apiPrefix = "^" + apiPrefix;
-  }
-  const proxyTable = proxycfg.proxyTable({}, {
-    dftApiPrefix: apiPrefix
-  });
-  logging.info("proxy config");
-  logging.info(proxyTable);
-
   return {
     // The Webpack config to use when compiling your react app for development or production.
     webpack,
 
     devServer (configFunction) {
+      // 统一vue config proxy格式
+      if (apiPrefix && !/^\^/.test(apiPrefix)) {
+        apiPrefix = "^" + apiPrefix;
+      }
+      const proxyTable = proxycfg.proxyTable({}, {
+        dftApiPrefix: apiPrefix
+      });
+      logging.info("proxy config");
+      logging.info(proxyTable);
+
       // Return the replacement function for create-react-app to use to generate the Webpack
       // Development Server config. "configFunction" is the function that would normally have
       // been used to generate the Webpack Development server config - you can use it to create
