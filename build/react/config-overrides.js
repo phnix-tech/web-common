@@ -75,7 +75,11 @@ module.exports = function ({
         });
         // Create the default config by calling configFunction with the proxy/allowedHost parameters
         const config = configFunction(proxy, allowedHost);
-
+        if (bldCfg.publicPath) {
+          // webpack dev server publicPath必须为绝对路径
+          // https://webpack.js.org/configuration/dev-server/#devserverpublicpath-
+          config.publicPath = bldCfg.publicPath.replace(/^\.\/?/, "/");
+        }
         logging.info("webpack dev server config", config);
 
         // Return your customised Webpack Development Server config.
