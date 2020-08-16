@@ -2,7 +2,9 @@ const
   paths = require("react-scripts/config/paths"),
   logging = require("gs-common/fe/Logging"),
   resolve = require("../resolve"),
-  proxycfg = require("../proxycfg");
+  proxycfg = require("../proxycfg"),
+  env = require("../env"),
+  prepareUrls = require("./prepareUrls");
 
 const bldCfg = require(resolve("./build/config"));
 const {publicPath} = bldCfg;
@@ -10,7 +12,11 @@ const {publicPath} = bldCfg;
 // 修改CRA build输出目录
 // https://segmentfault.com/q/1010000019904178/
 paths.appBuild = resolve(`dist/${bldCfg.outputName}`);
+if (env.isProd()) {
+  logging.info("outputDir", paths.appBuild);
+}
 
+const setCSSModuleLocalIndentName = require("./setCSSModuleLocalIndentName");
 function webpack (config) {
   // 解决tsconfig paths别名丢失问题
   // 添加IDE对于模块别名智能识别支持
@@ -24,11 +30,18 @@ function webpack (config) {
   // https://blog.csdn.net/weixin_39836173/article/details/86110011
   // https://github.com/ant-design/babel-plugin-import
   if (config.module && config.module.rules) {
-    let rule = config.module.rules[2];
-    rule = rule.oneOf && rule.oneOf[1];
+    const rule = config.module.rules[2];
+    const babelLoader = rule.oneOf && rule.oneOf[1];
 
-    if (rule && rule.options) {
-      rule.options.babelrc = true;
+    if (babelLoader && babelLoader.options) {
+      babelLoader.options.babelrc = true;
+    }
+
+    if (env.isProd()) {
+      // react-scripts/config/webpack.config.js
+      const cssModuleRule = rule.oneOf && rule.oneOf[4];
+      const sassModuleRule = rule.oneOf && rule.oneOf[6];
+      setCSSModuleLocalIndentName([cssModuleRule, sassModuleRule]);
     }
   }
 
@@ -40,33 +53,7 @@ function webpack (config) {
   return config;
 }
 
-// react-scripts默认打开根地址`/`
-const WebpackDevServerUtils = require("react-dev-utils/WebpackDevServerUtils");
-const {prepareUrls} = WebpackDevServerUtils;
-WebpackDevServerUtils.prepareUrls = function (protocol, host, port) {
-  const urls = prepareUrls.apply(prepareUrls, arguments);
-  if (
-    publicPath &&
-    publicPath !== "/" &&
-    /^\//.test(publicPath)
-  ) {
-    const url = publicPath.replace(/^\//, "");
-    // 支持浏览器打开publicPath url
-    urls.lanUrlForTerminal = urls.lanUrlForTerminal + url;
-    urls.localUrlForTerminal = urls.localUrlForTerminal + url;
-    urls.localUrlForBrowser = urls.localUrlForBrowser + url;
-  }
-
-  if (
-    urls.lanUrlForConfig &&
-    urls.lanUrlForConfig.indexOf(":") !== "-1"
-  ) {
-    // https://webpack.js.org/configuration/dev-server/#devserverpublic
-    // lanUrlForConfig为IP地址无端口，会传递给webpack-dev-server public选项
-    urls.lanUrlForConfig = `${urls.lanUrlForConfig}:${port}`;
-  }
-  return urls;
-};
+prepareUrls(publicPath);
 
 /**
  * create-react-app配置重写
