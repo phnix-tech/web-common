@@ -1,10 +1,13 @@
 const
   logging = require("gs-common/fe/Logging"),
+  env = require("./env"),
   resolve = require("./resolve"),
   proxyTable = require("./proxycfg").proxyTable({});
 
-logging.info("proxy config");
-logging.info(proxyTable);
+if (env.isDev()) {
+  logging.info("proxy config");
+  logging.info(proxyTable);
+}
 
 const config = require(resolve("./build/config"));
 
@@ -40,7 +43,7 @@ module.exports = function ({
       loaderOptions: {
         css: {
           ...(
-            process.env.NODE_ENV === "production" ? {
+            env.isProd() ? {
               modules: {
                 // https://github.com/webpack-contrib/css-loader#localidentname
                 // 自定义生产环境样式名称格式

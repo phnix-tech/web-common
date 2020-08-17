@@ -3,9 +3,14 @@ const
   projectRoot = path.join(__dirname, "../../..");
 
 /**
- * 基于项目根路径解析相对路径
+ * 基于项目根路径解析相对路径，假设默认当前文件位于`/src/common/build`第三级目录
  * @returns {string}
  */
-module.exports = function () {
-  return path.resolve.apply(path, [projectRoot, ...arguments]);
-};
+function resolve () {
+  const basePath = resolve.projectRoot || projectRoot;
+  return path.resolve.apply(path, [basePath, ...arguments]);
+}
+
+resolve.projectRoot = projectRoot;
+
+module.exports = resolve;
