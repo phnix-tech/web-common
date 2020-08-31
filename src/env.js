@@ -2,12 +2,13 @@
 const _window = typeof window !== "undefined" ? window : {
   ___APP_BASE_URL: undefined
 };
-const {env} = process;
+// 对象解构语法会导致环境变量获取失败
+const env = process.env;
 
 /**
  * 在window或者process.env中获取全局变量或者环境变量值
- * window全局变量key格式为`__APP_XXX`
- * process.env环境变量key格式为`VUE_APP_XXX`或者`REACT_APP_XXX`
+ * window全局变量key格式`__APP_XXX`
+ * process.env环境变量key格式`VUE_APP_XXX`或者`REACT_APP_XXX`
  * @param {string} key
  * @returns {string|undefined|*}
  */
