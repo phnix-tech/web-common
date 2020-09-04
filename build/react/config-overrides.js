@@ -57,7 +57,7 @@ prepareUrls(publicPath);
 
 /**
  * create-react-app配置重写
- * @param {string|undefined} apiPrefix api请求前缀，默认`/api`
+ * @param {string|undefined} apiPrefix - api请求前缀，默认`/api`
  * @see https://github.com/timarney/react-app-rewired
  */
 module.exports = function ({

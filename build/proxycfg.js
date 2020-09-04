@@ -1,7 +1,7 @@
 const
   logging = require("gs-common/fe/Logging"),
-  // 默认转发api请求到开发环境
-  proxyHost = process.env.PROXY_HOST || "http://192.168.0.203:8082",
+  // api代理主机
+  proxyHost = process.env.PROXY_HOST,
   proxyRewriteFrom = process.env.PROXY_REWRITE_FROM,
   proxyRewriteTo = process.env.PROXY_REWRITE_TO,
 
@@ -125,10 +125,12 @@ Object.keys(process.env)
     );
   });
 
-Object.assign(dftProxyTable, {
-  // default endpoint path prefix
-  "^/api/": proxyHost
-});
+if (proxyHost) {
+  Object.assign(dftProxyTable, {
+    // default endpoint path prefix
+    "^/api/": proxyHost
+  });
+}
 
 /**
  * convert proxy option to http-proxy-middleware option
