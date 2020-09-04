@@ -125,10 +125,11 @@ Object.keys(process.env)
     );
   });
 
+const DFT_API_PREFIX = "^/api/";
 if (proxyHost) {
   Object.assign(dftProxyTable, {
     // default endpoint path prefix
-    "^/api/": proxyHost
+    [DFT_API_PREFIX]: proxyHost
   });
 }
 
@@ -192,15 +193,20 @@ convert(dftProxyTable);
 module.exports = {
   proxyTable (proxyTable, {
     withDftProxyTable = true,
-    dftApiPrefix = "^/api/"
+    dftApiPrefix = DFT_API_PREFIX
   } = {}) {
+    logging.debug(`PROXY_HOST: ${proxyHost || "None"}`);
+    logging.debug(`default api prefix: ${dftApiPrefix}`);
+
     const table = {};
     if (withDftProxyTable) {
-      if (dftApiPrefix !== "^/api/") {
-        dftProxyTable[dftApiPrefix] = dftProxyTable["^/api/"];
-        delete dftProxyTable["^/api/"];
+      if (dftApiPrefix !== DFT_API_PREFIX) {
+        dftProxyTable[dftApiPrefix] = dftProxyTable[DFT_API_PREFIX];
+        delete dftProxyTable[DFT_API_PREFIX];
       }
       Object.assign(table, dftProxyTable);
+    } else {
+      logging.debug(`withDftProxyTable: ${withDftProxyTable}, so no api will proxy by default`);
     }
 
     return {

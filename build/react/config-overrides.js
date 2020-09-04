@@ -4,6 +4,7 @@ const
   resolve = require("../resolve"),
   proxycfg = require("../proxycfg"),
   env = require("../env"),
+  logFn = require("../logFn"),
   prepareUrls = require("./prepareUrls");
 
 const bldCfg = require(resolve("./build/config"));
@@ -11,10 +12,8 @@ const {publicPath} = bldCfg;
 
 // 修改CRA build输出目录
 // https://segmentfault.com/q/1010000019904178/
-paths.appBuild = resolve(`dist/${bldCfg.outputName}`);
-if (env.isProd()) {
-  logging.info("outputDir", paths.appBuild);
-}
+const outputDir = resolve(`dist/${bldCfg.outputName}`);
+paths.appBuild = outputDir;
 
 const setCSSModuleLocalIndentName = require("./setCSSModuleLocalIndentName");
 function webpack (config) {
@@ -22,8 +21,11 @@ function webpack (config) {
   // 添加IDE对于模块别名智能识别支持
   // https://blog.csdn.net/chrislincp/article/details/97312235
   // https://www.typescriptlang.org/v2/en/tsconfig#paths
+  const aliasPath = resolve("./src");
+  logFn({aliasPath});
   config.resolve.alias = {
-    "@": resolve("./src")
+    "@": aliasPath,
+    "-": aliasPath
   };
 
   // 开启babelrc
@@ -49,6 +51,8 @@ function webpack (config) {
   if (publicPath) {
     config.output.publicPath = publicPath;
   }
+  logFn({publicPath});
+  logFn({outputDir});
 
   return config;
 }
@@ -75,8 +79,7 @@ module.exports = function ({
       const proxyTable = proxycfg.proxyTable({}, {
         dftApiPrefix: apiPrefix
       });
-      logging.info("proxy config");
-      logging.info(proxyTable);
+      logFn({proxyTable});
 
       // Return the replacement function for create-react-app to use to generate the Webpack
       // Development Server config. "configFunction" is the function that would normally have
@@ -97,7 +100,7 @@ module.exports = function ({
           // https://webpack.js.org/configuration/dev-server/#devserverpublicpath-
           config.publicPath = publicPath.replace(/^\.\/?/, "/");
         }
-        logging.info("webpack dev server config", config);
+        logging.debug("webpack dev server config", config);
 
         // Return your customised Webpack Development Server config.
         return config;

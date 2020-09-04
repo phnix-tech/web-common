@@ -1,28 +1,27 @@
 const
-  logging = require("gs-common/fe/Logging"),
   env = require("../env"),
   resolve = require("../resolve"),
-  proxycfg = require("../proxycfg");
+  proxycfg = require("../proxycfg"),
+  logFn = require("../logFn");
 
 const config = require(resolve("./build/config"));
 
 /**
  * @param {string} aliasPath
  * @param {string|undefined} apiPrefix - api请求前缀，默认`^/api/`
+ * vue cli proxy path为正则表达式格式字符串
  * @see https://cli.vuejs.org/zh/config/
  */
 module.exports = function ({
   aliasPath = resolve("./src"),
   apiPrefix = undefined
 } = {}) {
-
   let devServer;
   if (env.isDev()) {
     const proxyTable = proxycfg.proxyTable({}, {
       dftApiPrefix: apiPrefix
     });
-    logging.info("proxy config");
-    logging.info(proxyTable);
+    logFn({proxyTable});
 
     devServer = {
       proxy: {
@@ -31,15 +30,18 @@ module.exports = function ({
     };
   }
 
-  logging.info(`@/- alias path ${aliasPath}`);
+  logFn({aliasPath});
+
+  // https://webpack.js.org/configuration/output/#outputpublicpath
+  const publicPath = config.publicPath;
+  logFn({publicPath});
 
   const outputDir = resolve(`./dist/${config.outputName}`);
-  logging.info("outputDir", outputDir);
+  logFn({outputDir});
 
   return {
+    publicPath,
     outputDir,
-    // https://webpack.js.org/configuration/output/#outputpublicpath
-    publicPath: config.publicPath,
     lintOnSave: false,
     configureWebpack: {
       resolve: {
