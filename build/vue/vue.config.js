@@ -23,10 +23,12 @@ module.exports = function ({
     });
     logFn({proxyTable});
 
+    // 如果无代理配置需指定proxy类型undefined，空对象类型报错
+    // https://webpack.js.org/configuration/dev-server/#devserverproxy
+    const proxy = (proxyTable && Object.keys(proxyTable).length > 0) ?
+      {...proxyTable} : undefined;
     devServer = {
-      proxy: {
-        ...proxyTable
-      }
+      proxy
     };
   }
 

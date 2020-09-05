@@ -87,9 +87,10 @@ module.exports = function ({
       // a starting configuration to then modify instead of having to create a config from scratch.
       return function (proxy, allowedHost) {
         // https://webpack.js.org/configuration/dev-server/#devserverproxy
-        proxy = {};
+        proxy = undefined;
         // webpack-dev-server proxy不支持正则表达式
         Object.keys(proxyTable).forEach(key => {
+          proxy = proxy || {};
           proxy[key.replace(/^\^/, "")] = proxyTable[key];
         });
         // Create the default config by calling configFunction with the proxy/allowedHost parameters
