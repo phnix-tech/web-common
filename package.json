@@ -27,7 +27,9 @@
     "gs-lint": "0.4.0",
     "eslint": "6.8.0",
     "stylelint": "9.10.1",
-    "babel-eslint": "10.0.3"
+    "babel-eslint": "10.0.3",
+    "husky": "4.2.1",
+    "lint-staged": "10.0.7"
   },
   "license": "MIT",
   "browserslist": [
