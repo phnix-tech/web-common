@@ -6,7 +6,8 @@ let HttpRequest;
 
 /**
  *
- * @param {object} opts - request options
+ * @param {object|string} opts - request options
+ * get方法只传递单个字符串参数则当做url参数处理
  * {'get'|'post'|'put'|'delete'} method - http request method, default get method
  * {string} url - request url
  * {object} data - request parameter or payload
