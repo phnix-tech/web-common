@@ -1,3 +1,9 @@
-# Web项目模板（Vue/React）
+# Web项目模板（Vue & React）
 
-仓库地址（暂定）：http://192.168.0.22/svn/MacauProject/03_Code/%E5%89%8D%E7%AB%AF/web-project-template
+仓库地址:
+
++ Git:
+    + HTTP - http://gitlab.k8s.owinfo.net/web/project-template.git
+    + SSH - git@gitlab.k8s.owinfo.net:web/project-template.git
+
++ SVN: http://192.168.0.22/svn/web/project-template
