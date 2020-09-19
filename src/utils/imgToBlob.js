@@ -1,9 +1,15 @@
 /**
  * convert image data to blob for image upload using `FormData`
  * @param {HTMLImageElement} img - html image element
+ * @param {string|null} type
+ * @param {number} quality
  * @returns {Promise<Blob>}
  */
-function imgToBlob (img) {
+function imgToBlob (
+  img,
+  type = null,
+  quality = 1.0
+) {
   const
     canvas = document.createElement("canvas"),
     ctx = canvas.getContext("2d");
@@ -15,7 +21,7 @@ function imgToBlob (img) {
   return new Promise(resolve => {
     canvas.toBlob(blob => {
       resolve(blob);
-    }, null, 1.0);
+    }, type, quality);
   });
 }
 
