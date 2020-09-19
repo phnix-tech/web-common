@@ -1,6 +1,6 @@
 /**
  * @param {string} name - query string key
- * @param {string|undefined} url - optional, if not given use location.search
+ * @param {string} url - optional, if not given use location.search
  * @returns {string|null} if not given key return null
  * @see http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
  * @description get query string params, borrowed from `gs-common/fe/Functions@getURLParameter`
@@ -9,7 +9,7 @@
  * get foo1 empty string not null, (present with no value)
  * get foo2 null (absent)
  */
-function getURLParameter (name, url) {
+function getURLParameter (name, url = undefined) {
   url = url || location.search;
   const regexp = new RegExp("[?|&]" + name + "(=([^&;]*)|&|#|;|$)");
   const group = regexp.exec(url);
