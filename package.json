@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "lint": "run-p eslint stylelint",
-    "eslint": "eslint --config ./eslintrc.js --cache --cache-location ./build/lint/.eslintcache --ignore-pattern \"/doc/**\" --ignore-pattern \"/src/vue/**\" --ext .js ./",
+    "eslint": "eslint --config ./eslintrc.js --cache --cache-location ./build/lint/.eslintcache --ignore-pattern \"/src/vue/**\" --ext .js ./",
     "stylelint": "stylelint --cache --cache-location ./build/lint/.stylelintcache \"./**/*.scss\" \"./**/*.less\" \"./**/*.vue\""
   },
   "dependencies": {
