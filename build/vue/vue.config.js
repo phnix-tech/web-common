@@ -2,7 +2,8 @@ const
   env = require("../env"),
   resolve = require("../resolve"),
   proxycfg = require("../proxycfg"),
-  logFn = require("../logFn");
+  logFn = require("../logFn"),
+  chainWebpack = require("./chainWebpack");
 
 const config = require(resolve("./build/config"));
 
@@ -47,13 +48,15 @@ module.exports = function ({
     lintOnSave: false,
     configureWebpack: {
       resolve: {
-        extensions: [".js", ".json", ".vue"],
         alias: {
+          // 注意vue cli内置添加了`@`别名
           "@": aliasPath,
           "-": aliasPath
         }
       }
     },
+    // https://cli.vuejs.org/zh/guide/webpack.html#%E9%93%BE%E5%BC%8F%E6%93%8D%E4%BD%9C-%E9%AB%98%E7%BA%A7
+    chainWebpack,
     // https://cli.vuejs.org/zh/guide/css.html#css-modules
     css: {
       requireModuleExtension: true,
