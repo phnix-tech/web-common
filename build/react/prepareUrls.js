@@ -21,7 +21,7 @@ module.exports = function (publicPath) {
 
     if (
       urls.lanUrlForConfig &&
-      urls.lanUrlForConfig.indexOf(":") !== "-1"
+      urls.lanUrlForConfig.indexOf(":") !== -1
     ) {
       // https://webpack.js.org/configuration/dev-server/#devserverpublic
       // lanUrlForConfig为IP地址无端口，会传递给webpack-dev-server public选项
