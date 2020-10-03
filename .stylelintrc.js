@@ -1,5 +1,5 @@
-const cfg = require("gs-lint/stylelint/.stylelintrc");
+const cfg = require("@web-io/lint/stylelint/.stylelintrc");
 Object.assign(cfg.rules, {
-  indentation: 2
+  // add extra rules
 });
 module.exports = cfg;

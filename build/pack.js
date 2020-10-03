@@ -1,6 +1,8 @@
 const
-  fn = require("gs-common/functions"),
-  logging = require("gs-common/fe/Logging"),
+  {
+    logging,
+    functions: fn
+  } = require("./web-build"),
   resolve = require("./resolve"),
   config = require(resolve("./build/config")),
   file = resolve(`./dist/${config.outputName}.tgz`);

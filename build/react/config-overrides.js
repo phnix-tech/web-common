@@ -1,6 +1,6 @@
 const
   paths = require("react-scripts/config/paths"),
-  logging = require("gs-common/fe/Logging"),
+  {logging} = require("../web-build"),
   resolve = require("../resolve"),
   proxycfg = require("../proxycfg"),
   env = require("../env"),

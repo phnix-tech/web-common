@@ -1,5 +1,5 @@
 const
-  logging = require("gs-common/fe/Logging"),
+  {logging} = require("./web-build"),
   // api代理主机
   proxyHost = process.env.PROXY_HOST,
   proxyRewriteFrom = process.env.PROXY_REWRITE_FROM,

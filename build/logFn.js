@@ -1,4 +1,4 @@
-const logging = require("gs-common/fe/Logging");
+const {logging} = require("./web-build");
 const env = require("./env");
 
 module.exports = function ({

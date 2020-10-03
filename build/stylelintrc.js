@@ -10,9 +10,8 @@ module.exports = function (dftCfg) {
 
   const cfg = Object.assign({}, dftCfg);
 
-  // 修改缩进为2个空格
   Object.assign(cfg.rules, {
-    indentation: 2
+    // add extra rules
   });
 
   return cfg;
