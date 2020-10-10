@@ -7,16 +7,16 @@ interface IProps {
   context?: React.Context<any>;
 }
 
-export default (
-  Component: React.ComponentType<any>,
+export default <P extends {}>(
+  Component: React.ComponentType<P>,
   props: IProps
-): React.FunctionComponent => {
+): React.FunctionComponent<P> => {
   const {
     createStore,
     context
   } = props;
 
-  return function (props = {}) {
+  return function (props: React.PropsWithChildren<P>) {
     // 防止函数组件多次创建store
     const store = useRef<Store>(createStore());
 

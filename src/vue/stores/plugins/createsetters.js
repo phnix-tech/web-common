@@ -7,7 +7,6 @@ import isobj from "../../../utils/isobj";
  * @returns {function}
  */
 export default function (setters = {}) {
-
   return function (store) {
     store.subscribe(mutation => {
       const {type, payload} = mutation;
