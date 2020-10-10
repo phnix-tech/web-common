@@ -28,8 +28,8 @@ function handleDefaultMethod (opts: RequestOptions, method: Options["method"]) {
 
   opts = opts as Options;
   opts = {
-    method: method,
-    ...opts
+    ...opts,
+    method
   };
   return request(opts);
 }

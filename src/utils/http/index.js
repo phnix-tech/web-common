@@ -23,23 +23,35 @@ function request (opts = {}) {
   if (typeof opts === "string") {
     opts = {url};
   }
+  if (!HttpRequest) {
+    throw new TypeError("HttpRequest must be set before send request");
+  }
   return new HttpRequest(opts);
+}
+
+function handleDefaultMethod (opts, method) {
+  const url = opts;
+  if (typeof url === "string") {
+    opts = {url};
+  }
+
+  opts = {
+    ...opts,
+    method
+  };
+  return request(opts);
 }
 
 function post (opts = {}) {
-  opts = {
-    method: "post",
-    ...opts
-  };
-  return new HttpRequest(opts);
+  return handleDefaultMethod(opts, "post");
 }
 
 function put (opts = {}) {
-  opts = {
-    method: "put",
-    ...opts
-  };
-  return new HttpRequest(opts);
+  return handleDefaultMethod(opts, "put");
+}
+
+function deleteMethod (opts = {}) {
+  return handleDefaultMethod(opts, "delete");
 }
 
 export default {
@@ -62,11 +74,5 @@ export default {
    * delete 为关键字，所以不能单独定义函数
    * @returns {Promise<*>}
    */
-  delete (opts = {}) {
-    opts = {
-      method: "delete",
-      ...opts
-    };
-    return new HttpRequest(opts);
-  }
+  delete: deleteMethod
 };
