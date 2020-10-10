@@ -1,3 +1,5 @@
+// http response interface definition
+
 export interface Page {
   total: number;
   page: number;

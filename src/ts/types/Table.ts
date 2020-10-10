@@ -1,3 +1,5 @@
+// Table components interface definition
+
 // table data source record
 export interface Record {
   // eslint-disable-next-line

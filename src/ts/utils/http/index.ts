@@ -1,8 +1,8 @@
-import http, {
+import httpInterface, {
   RequestOptions,
   Options,
   createHttpRequest as createHttpRequestType
-} from "@/types/http";
+} from "../../types/http";
 
 /**
  * 外部需要先设置`createHttpRequest`后才可正常调用接口
@@ -14,10 +14,13 @@ function request (opts: RequestOptions) {
   if (typeof url === "string") {
     opts = {url};
   }
+  if (!createHttpRequest) {
+    throw new TypeError("createHttpRequest must be set before send request");
+  }
   return createHttpRequest(opts as Options);
 }
 
-function post (opts: RequestOptions) {
+function handleDefaultMethod (opts: RequestOptions, method: Options["method"]) {
   const url = opts;
   if (typeof url === "string") {
     opts = {url};
@@ -25,27 +28,25 @@ function post (opts: RequestOptions) {
 
   opts = opts as Options;
   opts = {
-    method: "post",
+    method: method,
     ...opts
   };
-  return createHttpRequest(opts);
+  return request(opts);
+}
+
+function post (opts: RequestOptions) {
+  return handleDefaultMethod(opts, "post");
 }
 
 function put (opts: RequestOptions) {
-  const url = opts;
-  if (typeof url === "string") {
-    opts = {url};
-  }
-
-  opts = opts as Options;
-  opts = {
-    method: "put",
-    ...opts
-  };
-  return createHttpRequest(opts);
+  return handleDefaultMethod(opts, "put");
 }
 
-const http: http = {
+function deleteMethod (opts: RequestOptions) {
+  return handleDefaultMethod(opts, "delete");
+}
+
+const http: httpInterface = {
   get createHttpRequest () {
     return createHttpRequest;
   },
@@ -64,19 +65,7 @@ const http: http = {
   /**
    * delete 为关键字，所以不能单独定义函数
    */
-  delete (opts: RequestOptions) {
-    const url = opts;
-    if (typeof url === "string") {
-      opts = {url};
-    }
-
-    opts = opts as Options;
-    opts = {
-      method: "delete",
-      ...opts
-    };
-    return createHttpRequest(opts);
-  }
+  delete: deleteMethod
 };
 
 export default http;
