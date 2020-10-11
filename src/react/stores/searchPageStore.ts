@@ -1,19 +1,22 @@
 import React from "react";
+import {Dispatch, AnyAction, MiddlewareAPI} from "redux";
+import {Any} from "../../ts/types";
+import {State, GetStateMiddlewareDispatch, MixedDispatch} from "./index";
 import createStores from "./createStore";
 
-export default function (searchParams = {}) {
+export default function (searchParams: State = {}) {
   searchParams = {
     ...searchParams
   };
 
-  const
-    INIT_STATE = {
-      table: null,
-      searchParams
-    },
-    context = React.createContext(null);
+  const INIT_STATE = {
+    table: null,
+    searchParams
+  };
+  const context = React.createContext(null);
 
-  function reducer (state, action) {
+  function reducer (state: State | undefined, action: AnyAction) {
+    state = state as State;
     switch (action.type) {
       case "SET_STATE":
         state = {
@@ -45,26 +48,28 @@ export default function (searchParams = {}) {
     return state;
   }
 
-  function createStore () {
+  function createStore() {
     return createStores(reducer, INIT_STATE);
   }
 
-  function mapStateToProps (state) {
+  function mapStateToProps (state: State) {
     return {
       ...state
     };
   }
 
-  function mapDispatchToProps (dispatch) {
+  function mapDispatchToProps (dispatch: MixedDispatch) {
     return {
-      setState (value) {
+      setState (value: State) {
+        dispatch = dispatch as Dispatch;
         return dispatch({
           type: "SET_STATE",
           value
         });
       },
 
-      setSearchParams (value) {
+      setSearchParams (value: State) {
+        dispatch = dispatch as Dispatch;
         return dispatch({
           type: "SEARCH_PARAMS",
           value
@@ -72,36 +77,42 @@ export default function (searchParams = {}) {
       },
 
       getState () {
-        return dispatch(({getState}) => {
+        dispatch = dispatch as GetStateMiddlewareDispatch;
+        return dispatch(({getState}: MiddlewareAPI) => {
           return Promise.resolve(getState);
         });
       },
 
-      search () {
+      search (...rest: Any[]) {
+        dispatch = dispatch as GetStateMiddlewareDispatch;
         return dispatch(({getState}) => {
           const {table} = getState();
           if (!table) {
             return Promise.resolve();
           }
-          return table.search.apply(table, arguments);
+          return table.search.apply(table, rest);
         });
       },
 
-      resetPageSearch () {
+      resetPageSearch (...rest: Any[]) {
+        dispatch = dispatch as GetStateMiddlewareDispatch;
         return dispatch(({getState}) => {
           const {table} = getState();
           if (!table) {
             return Promise.resolve();
           }
-          return table.resetPageSearch.apply(table, arguments);
+          return table.resetPageSearch.apply(table, rest);
         });
       },
 
       reset (value = {}) {
+        dispatch = dispatch as Dispatch;
         dispatch({
           type: "RESET",
           value
         });
+
+        dispatch = dispatch as GetStateMiddlewareDispatch;
         return dispatch(({getState}) => {
           const {table} = getState();
           if (table) {

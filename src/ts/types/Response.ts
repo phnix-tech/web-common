@@ -11,15 +11,15 @@ export interface ObjectResponse {
   [key: string]: any;
 }
 
+// eslint-disable-next-line
+export type ArrayResponse = any[];
+
 export interface PageResponse {
   // eslint-disable-next-line
   body: any;
   page?: Page;
 }
 
-// eslint-disable-next-line
-export type ArrayResponse = any[];
-
-type Response = ObjectResponse | PageResponse | ArrayResponse;
+type Response = ObjectResponse | ArrayResponse | PageResponse;
 
 export default Response;

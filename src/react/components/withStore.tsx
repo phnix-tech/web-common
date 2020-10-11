@@ -34,4 +34,4 @@ export default <P extends {}>(
       </Provider>
     );
   };
-};
+}
