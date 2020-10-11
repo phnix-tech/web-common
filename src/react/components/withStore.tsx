@@ -1,14 +1,15 @@
 import React, {useEffect, useRef} from "react";
 import {Store} from "redux";
 import {Provider} from "react-redux";
+import {Any} from "../../ts/types";
 
 interface IProps {
   createStore: () => Store;
-  context?: React.Context<any>;
+  context?: React.Context<Any>;
 }
 
 export default <P extends {}>(
-  Component: React.ComponentType<P>,
+  Component: React.ComponentType<Any>,
   props: IProps
 ): React.FunctionComponent<P> => {
   const {

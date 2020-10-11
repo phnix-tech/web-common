@@ -4,6 +4,10 @@ export type ObjectParam = {
   // eslint-disable-next-line
   [key: string]: any;
 }
+
+// ObjectParam alias
+export type ObjectParams = ObjectParam;
+
 // array params or object params
 // eslint-disable-next-line
 export type Params = any[] | ObjectParam;
