@@ -32,16 +32,17 @@ export interface Options {
    */
   data?: Params;
   /**
-   * 2xx状态下是否提示后端返回msg，默认值`false`
+   * 2xx状态下是否提示后端返回msg，默认`false`
    */
   msg?: boolean;
   /**
-   * 非2xx状态下是否自动提示后端错误消息，默认值`true`
+   * 非2xx状态下是否自动提示后端错误消息，默认`true`
    */
   errmsg?: boolean;
   /**
-   * 是否返回axios resp.data和resp
+   * 是否返回raw response，比如axios response.data和response
    * 注意：由于promise resolve只能传递一个参数，请用数组解构接受多个参数
+   * Promise<[R, RawData, RawResponse]>
    */
   resp?: boolean;
   /**
@@ -52,7 +53,7 @@ export interface Options {
 
 /**
  * request options
- * get方法只传递单个字符串参数则当做url参数处理
+ * 如果传递单个字符串参数则当做url参数处理
  */
 export type RequestOptions = string | Options;
 
