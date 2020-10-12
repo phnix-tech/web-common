@@ -1,12 +1,13 @@
 // Table components interface definition
 
+import {Any} from "./index";
+
 /**
  * table data source record
  */
-export interface Record {
-  // eslint-disable-next-line
-  [key: string]: any;
-}
+export type Record<T = {
+  [key: string]: Any;
+}> = T;
 
 export interface PageParams {
   page: number;
@@ -14,14 +15,11 @@ export interface PageParams {
 }
 
 export default interface Table {
-  // eslint-disable-next-line
-  pageLists (...rest: any[]): void;
+  pageLists (...rest: Any[]): void;
 
-  // eslint-disable-next-line
-  selectedData (): any[];
+  selectedData (): Any[];
 
-  // eslint-disable-next-line
-  getData (): any[];
+  getData (): Any[];
 
   handlePageChg (currentPage: number): this;
 }

@@ -3,7 +3,7 @@ import httpInterface, {
   Options,
   createHttpRequest as createHttpRequestType
 } from "../../types/http";
-import Response from "../../types/Response";
+import Response from "../../types/http/Response";
 
 /**
  * 外部需要先设置`createHttpRequest`后才可正常调用接口

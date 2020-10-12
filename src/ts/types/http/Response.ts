@@ -2,7 +2,7 @@
  * http response interface definition
  */
 
-import {Any} from "./index";
+import {Any} from "../index";
 
 /**
  * page list response `Page` data

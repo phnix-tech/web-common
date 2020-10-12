@@ -1,5 +1,5 @@
 import {Any} from "../index";
-import Response from "../Response";
+import Response from "./Response";
 
 /**
  * object params
@@ -16,7 +16,7 @@ export type ObjectParams = ObjectParam;
 /**
  * array params or object params
  */
-export type Params = Any[] | ObjectParam;
+export type Params = Any[] | ObjectParams;
 
 export interface Options {
   /**
