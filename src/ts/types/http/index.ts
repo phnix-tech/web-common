@@ -1,11 +1,11 @@
+import {Any} from "../index";
 import Response from "../Response";
 
 /**
  * object params
  */
 export type ObjectParam = {
-  // eslint-disable-next-line
-  [key: string]: any;
+  [key: string]: Any;
 }
 
 /**
@@ -16,8 +16,7 @@ export type ObjectParams = ObjectParam;
 /**
  * array params or object params
  */
-// eslint-disable-next-line
-export type Params = any[] | ObjectParam;
+export type Params = Any[] | ObjectParam;
 
 export interface Options {
   /**
@@ -57,9 +56,9 @@ export interface Options {
  */
 export type RequestOptions = string | Options;
 
-export type request = (opts: RequestOptions) => Promise<Response>;
+export type request = <R = Response>(opts: RequestOptions) => Promise<R>;
 
-export type createHttpRequest = (opts: Options) => Promise<Response>;
+export type createHttpRequest = <R = Response>(opts: Options) => Promise<R>;
 
 export default interface http {
   createHttpRequest: createHttpRequest;
