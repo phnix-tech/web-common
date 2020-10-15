@@ -1,5 +1,9 @@
-import {Dispatch, MiddlewareAPI} from "redux";
+import {AnyAction, Dispatch, MiddlewareAPI} from "redux";
 import {Any} from "../../ts/types";
+
+type MiddlewareFn = ({dispatch, getState}: MiddlewareAPI) => Any;
+type ReturnTypeInner = (action: AnyAction | MiddlewareFn) => AnyAction;
+type ReturnType = (next: Dispatch) => ReturnTypeInner;
 
 /**
  * 异步执行action中间件
@@ -11,11 +15,7 @@ import {Any} from "../../ts/types";
  */
 const getStateMiddleware = (
   {dispatch, getState}: MiddlewareAPI
-) => (
-  next: Dispatch
-) => (
-  action: Any
-) => {
+): ReturnType => next => action => {
   if (typeof action === "function") {
     return action({dispatch, getState});
   }

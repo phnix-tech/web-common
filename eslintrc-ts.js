@@ -167,14 +167,16 @@ Object.assign(cfg.rules, {
    * 统一类型断言`as`风格
    * https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/consistent-type-assertions.md
    */
-  "@typescript-eslint/consistent-type-assertions": ["error"]
+  "@typescript-eslint/consistent-type-assertions": ["error"],
 
   /**
    * 模块导出边界需要显示指定类型，主要针对导出`函数`、`类`，不要去依赖类型推断
+   * 该规则在某些情况下会造成不必要的类型定义而消耗更多时间，因为会和TS本身的类型推断重复
    * 该规则属于推荐规则，默认警告提示，比如`warning  Missing return type on function  @typescript-eslint/explicit-module-boundary-types`
+   * Require explicit return and argument types on exported functions' and classes' public class methods
    * https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/explicit-module-boundary-types.md
    */
-  // "@typescript-eslint/explicit-module-boundary-types": ["error"],
+  "@typescript-eslint/explicit-module-boundary-types": ["error"]
 });
 
 module.exports = cfg;

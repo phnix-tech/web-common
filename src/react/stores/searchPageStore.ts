@@ -1,10 +1,36 @@
 import React from "react";
-import {Dispatch, AnyAction, MiddlewareAPI} from "redux";
+import {Dispatch, AnyAction, MiddlewareAPI, Store, Action} from "redux";
 import {Any} from "../../ts/types";
 import {State, GetStateMiddlewareDispatch, MixedDispatch} from "./index";
 import createStores from "./createStore";
 
-export default function (searchParams: State = {}) {
+type PageStoreAction = Action<string> & {
+  value: State;
+};
+
+type ISearchPageStore<C = Any> = {
+  context: React.Context<C>;
+
+  createStore (): Store;
+
+  mapStateToProps (state: State): State;
+
+  mapDispatchToProps (dispatch: MixedDispatch): {
+    setState (value: State): PageStoreAction;
+
+    setSearchParams (value: State): PageStoreAction;
+
+    getState (): Promise<() => State>;
+
+    search (...rest: Any[]): Promise<Any>;
+
+    resetPageSearch (...rest: Any[]): Promise<Any>;
+
+    reset (value?: State): Promise<Any>;
+  };
+};
+
+export default function (searchParams: State = {}): ISearchPageStore {
   searchParams = {
     ...searchParams
   };
@@ -105,7 +131,7 @@ export default function (searchParams: State = {}) {
         });
       },
 
-      reset (value = {}) {
+      reset (value: State = {}) {
         dispatch = dispatch as Dispatch;
         dispatch({
           type: "RESET",

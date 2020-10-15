@@ -10,7 +10,7 @@ import Response from "../../types/http/Response";
  */
 let createHttpRequest: createHttpRequestType;
 
-function request<R = Response> (opts: RequestOptions) {
+function request<R = Response> (opts: RequestOptions): Promise<R> {
   const url = opts;
   if (typeof url === "string") {
     opts = {url};
@@ -35,15 +35,15 @@ function handleDefaultMethod<R = Response> (opts: RequestOptions, method: Option
   return request<R>(opts);
 }
 
-function post<R = Response> (opts: RequestOptions) {
+function post<R = Response> (opts: RequestOptions): Promise<R> {
   return handleDefaultMethod<R>(opts, "post");
 }
 
-function put<R = Response> (opts: RequestOptions) {
+function put<R = Response> (opts: RequestOptions): Promise<R> {
   return handleDefaultMethod<R>(opts, "put");
 }
 
-function deleteMethod<R = Response> (opts: RequestOptions) {
+function deleteMethod<R = Response> (opts: RequestOptions): Promise<R> {
   return handleDefaultMethod<R>(opts, "delete");
 }
 

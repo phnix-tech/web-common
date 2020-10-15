@@ -1,4 +1,4 @@
-import {createStore, applyMiddleware, Reducer} from "redux";
+import {createStore, applyMiddleware, Reducer, Store} from "redux";
 import getStateMiddleware from "./getStateMiddleware";
 import {State} from "./index";
 
@@ -10,6 +10,6 @@ import {State} from "./index";
 export default function (
   reducer: Reducer,
   initState: State | undefined = undefined
-) {
+): Store {
   return createStore(reducer, initState, applyMiddleware(getStateMiddleware));
 }
