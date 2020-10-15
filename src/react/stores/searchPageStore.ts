@@ -48,7 +48,7 @@ export default function (searchParams: State = {}) {
     return state;
   }
 
-  function createStore() {
+  function createStore () {
     return createStores(reducer, INIT_STATE);
   }
 
@@ -90,7 +90,7 @@ export default function (searchParams: State = {}) {
           if (!table) {
             return Promise.resolve();
           }
-          return table.search.apply(table, rest);
+          return table.search(...rest);
         });
       },
 
@@ -101,7 +101,7 @@ export default function (searchParams: State = {}) {
           if (!table) {
             return Promise.resolve();
           }
-          return table.resetPageSearch.apply(table, rest);
+          return table.resetPageSearch(...rest);
         });
       },
 

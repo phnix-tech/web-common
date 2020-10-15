@@ -6,7 +6,7 @@ import Response from "./Response";
  */
 export type ObjectParam = {
   [key: string]: Any;
-}
+};
 
 /**
  * `ObjectParam` alias

@@ -16,6 +16,7 @@ dist/
 # ignore eslint cache files
 build/lint/.cache_*
 build/lint/.eslintcache
+build/lint/.eslinttscache
 
 # ignore stylelint cache files
 build/lint/.stylelintcache*

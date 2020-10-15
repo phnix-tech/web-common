@@ -10,18 +10,18 @@ import Response from "../../types/http/Response";
  */
 let createHttpRequest: createHttpRequestType;
 
-function request <R = Response>(opts: RequestOptions) {
+function request<R = Response> (opts: RequestOptions) {
   const url = opts;
   if (typeof url === "string") {
     opts = {url};
   }
   if (!createHttpRequest) {
-    throw new TypeError("createHttpRequest must be set before send request");
+    // throw new TypeError("createHttpRequest must be set before send request");
   }
   return createHttpRequest<R>(opts as Options);
 }
 
-function handleDefaultMethod <R = Response>(opts: RequestOptions, method: Options["method"]) {
+function handleDefaultMethod<R = Response> (opts: RequestOptions, method: Options["method"]) {
   const url = opts;
   if (typeof url === "string") {
     opts = {url};
@@ -35,15 +35,15 @@ function handleDefaultMethod <R = Response>(opts: RequestOptions, method: Option
   return request<R>(opts);
 }
 
-function post <R = Response>(opts: RequestOptions) {
+function post<R = Response> (opts: RequestOptions) {
   return handleDefaultMethod<R>(opts, "post");
 }
 
-function put <R = Response>(opts: RequestOptions) {
+function put<R = Response> (opts: RequestOptions) {
   return handleDefaultMethod<R>(opts, "put");
 }
 
-function deleteMethod <R = Response>(opts: RequestOptions) {
+function deleteMethod<R = Response> (opts: RequestOptions) {
   return handleDefaultMethod<R>(opts, "delete");
 }
 

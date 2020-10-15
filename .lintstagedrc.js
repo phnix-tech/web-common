@@ -4,5 +4,6 @@
  */
 module.exports = {
   "./**/*.js": "eslint --config ./eslintrc.js",
+  "./**/*.ts": "eslint --config ./eslintrc-ts.js",
   "./src/**/*.{scss,less,vue}": "stylelint"
 };
