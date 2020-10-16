@@ -1,6 +1,12 @@
 const cfg = require("@web-io/lint/eslint/.eslintrc");
 
 /**
+ * eslint typescript配置
+ * 依赖包(注意对等版本依赖)：
+ * typescript(3.9.4+)
+ * eslint(6.8.0+)
+ * @typescript-eslint/parser(4.4.1+)
+ * @typescript-eslint/eslint-plugin(4.4.1+)
  * https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/README.md
  */
 Object.assign(cfg, {
@@ -16,6 +22,11 @@ Object.assign(cfg, {
   ),
   extends: [
     ...(Array.isArray(cfg.extends) ? cfg.extends : [cfg.extends]),
+    /**
+     * typescript eslint推荐规则
+     * https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#supported-rules
+     * Key with `✔️`
+     */
     "plugin:@typescript-eslint/recommended"
     // "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
@@ -30,7 +41,7 @@ Object.assign(cfg.rules, {
   "object-curly-spacing": "off"
 }, {
   // ====================================================================
-  // eslint TypeScript rules override
+  // eslint typescript rules overrides
   // ====================================================================
 
   /**
@@ -117,7 +128,36 @@ Object.assign(cfg.rules, {
   "@typescript-eslint/no-useless-constructor": ["error"],
 
   // ====================================================================
-  // eslint TypeScript only rules
+  // eslint typescript only rules
+  // ====================================================================
+
+  // ====================================================================
+  // eslint typescript recommended rules
+  // ====================================================================
+
+  /**
+   * 开启`// @ts-ignore`注释指令，必须添加说明文字解释为什么添加该指令
+   * 默认不允许注释指令
+   */
+  "@typescript-eslint/ban-ts-comment": [
+    "error",
+    {
+      "ts-ignore": "allow-with-description",
+      "ts-nocheck": "allow-with-description"
+    }
+  ],
+
+  /**
+   * 模块导出边界需要显示指定类型，主要针对导出`函数`、`类`，不要去依赖类型推断
+   * 该规则在某些情况下会造成不必要的类型定义而消耗更多时间，因为会和TS本身的类型推断重复
+   * 该规则属于推荐规则，默认警告提示，比如`warning  Missing return type on function  @typescript-eslint/explicit-module-boundary-types`
+   * Require explicit return and argument types on exported functions' and classes' public class methods
+   * https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/explicit-module-boundary-types.md
+   */
+  "@typescript-eslint/explicit-module-boundary-types": ["error"],
+
+  // ====================================================================
+  // eslint typescript extension rules
   // ====================================================================
 
   /**
@@ -170,13 +210,14 @@ Object.assign(cfg.rules, {
   "@typescript-eslint/consistent-type-assertions": ["error"],
 
   /**
-   * 模块导出边界需要显示指定类型，主要针对导出`函数`、`类`，不要去依赖类型推断
-   * 该规则在某些情况下会造成不必要的类型定义而消耗更多时间，因为会和TS本身的类型推断重复
-   * 该规则属于推荐规则，默认警告提示，比如`warning  Missing return type on function  @typescript-eslint/explicit-module-boundary-types`
-   * Require explicit return and argument types on exported functions' and classes' public class methods
-   * https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/explicit-module-boundary-types.md
+   * 禁用`any`类型，默认警告提示，改为error
    */
-  "@typescript-eslint/explicit-module-boundary-types": ["error"]
+  "@typescript-eslint/no-explicit-any": ["error"],
+
+  /**
+   * 统一数组定义形式`T[]` or `readonly T[]`, 禁用泛型形式`Array<T>` or `ReadonlyArray<T>`
+   */
+  "@typescript-eslint/array-type": ["error"]
 });
 
 module.exports = cfg;
