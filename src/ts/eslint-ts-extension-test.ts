@@ -19,3 +19,28 @@ export const y: readonly string[] = ["a", "b"];
 //   // ...
 //   console.log(e);
 // }
+
+/**
+ * https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/prefer-literal-enum-member.md
+ */
+export enum Valid {
+  A,
+  // A regular string
+  B = "TestStr",
+  // A number
+  C = 4,
+  // @ts-ignore: 测试TS枚举值类型，可以为非数字和字符串！？
+  D = null, // eslint-disable-line
+  // @ts-ignore: 测试TS枚举值类型，可以为非数字和字符串！？
+  E = /some_regex/, // eslint-disable-line
+  // @ts-ignore: 测试TS枚举值类型，可以为非数字和字符串！？
+  F = 2 + 2 // eslint-disable-line
+}
+// export const str = "Test";
+// export enum Invalid {
+//   A = str, // Variable assignment
+//   B = {}, // Object assignment
+//   C = "A template literal string", // Template literal
+//   D = new Set(1, 2, 3), // Constructor in assignment
+//   E = 2 + 2, // Expression assignment
+// }

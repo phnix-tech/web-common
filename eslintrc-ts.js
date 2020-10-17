@@ -45,6 +45,18 @@ Object.assign(cfg.rules, {
   // ====================================================================
 
   /**
+   * 统一缩进2个空格, switch case保持1倍缩进
+   */
+  indent: "off",
+  "@typescript-eslint/indent": [
+    "error",
+    2,
+    {
+      SwitchCase: 1
+    }
+  ],
+
+  /**
    *  note you must disable the base rule as it can report incorrect errors
    *  统一双引号
    */
@@ -114,6 +126,12 @@ Object.assign(cfg.rules, {
   ],
 
   /**
+   * 限制默认参数/可选参数在必选参数之后
+   */
+  "default-param-last": "off",
+  "@typescript-eslint/default-param-last": ["error"],
+
+  /**
    * note you must disable the base rule as it can report incorrect errors
    * parameter properties in constructor functions will trigger eslint no-empty-function invalid
    */
@@ -168,6 +186,7 @@ Object.assign(cfg.rules, {
       allowSingleExtends: true
     }
   ],
+
   // ====================================================================
   // eslint typescript extension rules
   // ====================================================================
@@ -227,9 +246,19 @@ Object.assign(cfg.rules, {
   "@typescript-eslint/no-explicit-any": ["error"],
 
   /**
+   * 禁用commonjs `require`，请用es6 `import`
+   */
+  "@typescript-eslint/no-require-imports": "error",
+
+  /**
    * 统一数组定义形式`T[]` or `readonly T[]`, 禁用泛型形式`Array<T>` or `ReadonlyArray<T>`
    */
-  "@typescript-eslint/array-type": ["error"]
+  "@typescript-eslint/array-type": ["error"],
+
+  /**
+   * 限制枚举成员只能为字面值简单常量不能为对象类型，不能引用外部变量
+   */
+  "@typescript-eslint/prefer-literal-enum-member": "error"
 });
 
 module.exports = cfg;

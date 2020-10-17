@@ -5,9 +5,10 @@
   "author": "leejefy <050934@gmail.com>",
   "private": true,
   "scripts": {
-    "lint": "run-p eslint eslint-ts stylelint",
+    "lint": "run-p eslint eslint-ts eslint-tsx stylelint",
     "eslint": "eslint --config ./eslintrc.js --cache --cache-location ./build/lint/.eslintcache --ignore-pattern \"/src/vue/**\" --ext .js ./",
     "eslint-ts": "eslint --config ./eslintrc-ts.js --cache --cache-location ./build/lint/.eslinttscache --ext .ts ./",
+    "eslint-tsx": "eslint --config ./eslintrc-tsx.js --cache --cache-location ./build/lint/.eslinttsxcache --ext .tsx ./",
     "stylelint": "stylelint --cache --cache-location ./build/lint/.stylelintcache \"./**/*.scss\" \"./**/*.less\" \"./**/*.vue\""
   },
   "dependencies": {
