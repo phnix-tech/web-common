@@ -126,6 +126,8 @@ Object.assign(cfg.rules, {
   "@typescript-eslint/no-duplicate-imports": ["error"],
   "no-useless-constructor": "off",
   "@typescript-eslint/no-useless-constructor": ["error"],
+  "no-unused-vars": "off",
+  "@typescript-eslint/no-unused-vars": ["error"],
 
   // ====================================================================
   // eslint typescript only rules
@@ -156,6 +158,16 @@ Object.assign(cfg.rules, {
    */
   "@typescript-eslint/explicit-module-boundary-types": ["error"],
 
+  /**
+   * 考虑到接口在泛型下可能让类型定义变得复杂，我们允许接口空单继承
+   * https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-empty-interface.md
+   */
+  "@typescript-eslint/no-empty-interface": [
+    "error",
+    {
+      allowSingleExtends: true
+    }
+  ],
   // ====================================================================
   // eslint typescript extension rules
   // ====================================================================

@@ -1,8 +1,8 @@
 import React from "react";
-import {Dispatch, MiddlewareAPI, Store, Action, AnyAction} from "redux";
+import {Dispatch, MiddlewareAPI, Action, AnyAction} from "redux";
 import {Any} from "../../ts/types";
 import {RTable} from "../../ts/types/Table";
-import {GetStateMiddlewareDispatch, MixedDispatch} from "./index";
+import {GetStateMiddlewareDispatch, MixedDispatch, IStore} from "./index";
 import createStores from "./createStore";
 
 enum ActionType {
@@ -36,16 +36,10 @@ interface IMapDispatchToProps<S, SP> {
  * @template C - redux context
  * @template S - redux store state
  * @template SP - search params
- * @template A - actions
+ * @template A - dispatch actions
  */
-interface ISearchPageStore<C, S, SP, A extends Action = AnyAction> {
-  context: React.Context<C | null>;
+interface ISearchPageStore<C, S, SP, A extends Action = AnyAction> extends IStore<C, S, IMapDispatchToProps<S, SP>, A> {
 
-  createStore (): Store<S, A>;
-
-  mapStateToProps (state: S): S;
-
-  mapDispatchToProps (dispatch: MixedDispatch): IMapDispatchToProps<S, SP>;
 }
 
 interface IState<T, SP> {
