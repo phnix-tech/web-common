@@ -5,8 +5,8 @@ const cfg = require("@web-io/lint/eslint/.eslintrc");
  * 依赖包(注意对等版本依赖)：
  * typescript(3.9.4+)
  * eslint(6.8.0+)
- * @typescript-eslint/parser(4.4.1+)
- * @typescript-eslint/eslint-plugin(4.4.1+)
+ * - @typescript-eslint/parser(4.4.1+)
+ * - @typescript-eslint/eslint-plugin(4.4.1+)
  * https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/README.md
  */
 Object.assign(cfg, {

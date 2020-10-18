@@ -16,7 +16,7 @@ function request<R = Response> (opts: RequestOptions): Promise<R> {
     opts = {url};
   }
   if (!createHttpRequest) {
-    // throw new TypeError("createHttpRequest must be set before send request");
+    throw new TypeError("createHttpRequest must be set before send request");
   }
   return createHttpRequest<R>(opts as Options);
 }
