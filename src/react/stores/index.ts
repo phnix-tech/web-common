@@ -1,6 +1,6 @@
 import React from "react";
 import {Action, AnyAction, Dispatch, MiddlewareAPI, PreloadedState, Store} from "redux";
-import {Any} from "../../ts/types";
+import {Any, EmptyObject} from "../../ts/types";
 
 export type State<S = Record<string, Any>> = PreloadedState<S>;
 
@@ -22,6 +22,21 @@ export type MixedDispatch<
   | Dispatch<A>
   | GetStateMiddlewareDispatch<D, S>;
 
+export type Context<C> = React.Context<C>;
+
+export type CreateStore<S, A extends Action = AnyAction> = () => Store<S, A>;
+
+/**
+ * withStore components wrapper
+ * @template P - the returned FC component props type
+ * @param Component - source component
+ */
+export type WithStore = <P extends EmptyObject>(Component: React.ComponentType<Any>) => React.FunctionComponent<P>;
+
+export type MapStateToProps<S> = (state: S) => S;
+
+export type MapDispatchToProps<D> = (dispatch: MixedDispatch) => D;
+
 /**
  * @template C - redux context
  * @template S - redux store state
@@ -29,11 +44,13 @@ export type MixedDispatch<
  * @template A - dispatch actions
  */
 export interface IStore<C, S, D, A extends Action = AnyAction> {
-  context: React.Context<C | null>;
+  context: Context<C>;
 
-  createStore (): Store<S, A>;
+  createStore: CreateStore<S, A>;
 
-  mapStateToProps (state: S): S;
+  withStore: WithStore;
 
-  mapDispatchToProps (dispatch: MixedDispatch): D;
+  mapStateToProps: MapStateToProps<S>;
+
+  mapDispatchToProps: MapDispatchToProps<D>;
 }
