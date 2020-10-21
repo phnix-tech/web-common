@@ -1,4 +1,4 @@
-const {eslintTs: cfg} = require("@web-io/lint");
+const cfg = require("@web-io/lint/eslint/eslint-ts");
 Object.assign(cfg.rules, {
   // add extra rules
 });
