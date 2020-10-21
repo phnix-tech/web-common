@@ -5,8 +5,8 @@
   "author": "leejefy <050934@gmail.com>",
   "private": true,
   "scripts": {
-    "lint": "run-p eslint stylelint",
-    "eslint": "eslint --config ./eslintrc.js --cache --cache-location ./build/.cache/.eslintcache --ignore-pattern \"/src/vue/**\" --ext .js ./",
+    "lint": "run-p eslint eslint-ts stylelint",
+    "eslint": "eslint --config ./eslintrc.js --cache --cache-location ./build/.cache/.eslintcache --ignore-pattern \"/src/vue/**\" --ext .js,jsx ./",
     "eslint-ts": "eslint --config ./eslintrc-ts.js --cache --cache-location ./build/.cache/.eslinttscache --ext .ts,.tsx ./",
     "stylelint": "stylelint --cache --cache-location ./build/.cache/.stylelintcache \"./**/*.scss\" \"./**/*.less\" \"./**/*.vue\""
   },
@@ -27,7 +27,8 @@
     "@web-io/lint": "0.4.1",
     "eslint": "6.8.0",
     "stylelint": "9.10.1",
-    "babel-eslint": "10.0.3",
+    "@typescript-eslint/parser": "4.4.1",
+    "@typescript-eslint/eslint-plugin": "4.4.1",
     "husky": "4.2.1",
     "lint-staged": "10.0.7"
   },
