@@ -3,7 +3,6 @@
  * PATH="/usr/local/bin:$PATH"
  */
 module.exports = {
-  "./**/*.{js,jsx}": "eslint --config ./eslintrc.js",
-  "./**/*.{ts,tsx}": "eslint --config ./eslintrc-ts.js",
+  "./**/*.{js,jsx,ts,tsx}": "eslint --config ./eslintrc.js",
   "./src/**/*.{scss,less,vue}": "stylelint"
 };

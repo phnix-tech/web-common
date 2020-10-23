@@ -6,9 +6,7 @@
   "private": true,
   "scripts": {
     "lint": "run-p eslint stylelint",
-    "eslint": "run-p eslint-js eslint-ts",
-    "eslint-js": "eslint --config ./eslintrc.js --cache --cache-location ./build/.cache/.eslintcache --ignore-pattern \"/src/vue/**\" --ext .js,jsx ./",
-    "eslint-ts": "eslint --config ./eslintrc-ts.js --cache --cache-location ./build/.cache/.eslinttscache --ext .ts,.tsx ./",
+    "eslint": "eslint --config ./eslintrc.js --cache --cache-location ./build/.cache/.eslintcache --ignore-pattern \"/src/vue/components/**\" --ext .js,jsx,ts,tsx ./",
     "stylelint": "stylelint --cache --cache-location ./build/.cache/.stylelintcache \"./**/*.scss\" \"./**/*.less\" \"./**/*.vue\""
   },
   "dependencies": {
@@ -25,7 +23,7 @@
     "@types/react-redux": "7.1.9",
     "npm-run-all": "4.1.5",
     "@web-io/build": "0.2.3",
-    "@web-io/lint": "0.5.0-dev2",
+    "@web-io/lint": "0.5.0-dev3",
     "husky": "4.2.1",
     "lint-staged": "10.0.7"
   },

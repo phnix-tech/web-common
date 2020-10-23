@@ -4,8 +4,7 @@
  * @returns {*} object
  */
 module.exports = function (cfg) {
-  const rules = cfg.rules || {};
-  Object.assign(rules, {
+  cfg.rules = Object.assign(cfg.rules || {}, {
     // 该规则不能正确解析export default from语法
     "object-curly-spacing": "off"
   });
