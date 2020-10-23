@@ -9,7 +9,7 @@ function isAry (obj: Any) {
  * @param {string} url
  * @returns {string}
  */
-export default function (url = "") {
+export default function (url = ""): string {
   const
     segments = url.split("?")
       .filter(segment => segment.trim() !== ""),

@@ -9,7 +9,10 @@
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
+    // 排除js/jsx文件, 默认`false`，排除的意思就是模块解析时不会扫描js/jsx文件
+    // 建议在ts项目中不要混用ts + js，而是只允许ts，除非是基于js的项目在完全迁移到ts可以开启
+    // https://www.typescriptlang.org/tsconfig#allowJs
+    "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -17,15 +20,25 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    // 不输出js文件，默认`false`，如果ts和js混合会导致提示js文件会被覆盖错误
+    // https://www.typescriptlang.org/tsconfig#noEmit
     "noEmit": true,
     "jsx": "react"
   },
+  // if glob pattern doesn’t include a file extension
+  // only files with supported extensions are included (e.g. .ts, .tsx, and .d.ts by default, with .js and .jsx if allowJs is set to true)
+  // https://www.typescriptlang.org/tsconfig#include
+  // IntelliJ IDEA对`src`、`src/**/**`会检查vue文件!?
   "include": [
-    "src"
+    "src/**/*.ts",
+    "src/**/*.tsx"
   ],
+  // exclude可以排除include里面包含的文件，就相当于include重写，比如src里面包含构建相关的ts文件在build目录中
+  // 可以加一条exclude `src/build/**/*`来排除构建文件，我们最好不要这样组织项目目录结构，因为会造成目录结构混乱
+  // https://www.typescriptlang.org/tsconfig#exclude
   "exclude": [
     "node_modules",
-    "doc",
-    "build"
+    "build",
+    "doc"
   ]
 }
