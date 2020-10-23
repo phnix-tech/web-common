@@ -15,7 +15,11 @@ type ReturnType = (next: Dispatch) => ReturnTypeInner;
  */
 const getStateMiddleware = (
   {dispatch, getState}: MiddlewareAPI
-): ReturnType => next => action => {
+): ReturnType => (
+  next: Dispatch
+) => (
+  action: AnyAction | MiddlewareFn
+) => {
   if (typeof action === "function") {
     return action({dispatch, getState});
   }

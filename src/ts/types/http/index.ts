@@ -4,14 +4,14 @@ import Response from "./Response";
 /**
  * object params
  */
-export type ObjectParam = {
+export type ObjectParams = {
   [key: string]: Any;
 };
 
 /**
- * `ObjectParam` alias
+ * `ObjectParams` alias
  */
-export type ObjectParams = ObjectParam;
+export type ObjectParam = ObjectParams;
 
 /**
  * array params or object params
