@@ -28,11 +28,16 @@ function webpack (config) {
     "-": aliasPath
   };
 
-  // 开启babelrc
-  // https://blog.csdn.net/weixin_39836173/article/details/86110011
-  // https://github.com/ant-design/babel-plugin-import
   if (config.module && config.module.rules) {
-    const rule = config.module.rules[2];
+    // 删除react-scripts eslint loader，我们使用自己的eslint配置
+    // see `react-scripts/config/webpack.config.js`
+    const {rules} = config.module;
+    rules.splice(1, 1);
+
+    // 开启babelrc
+    // https://blog.csdn.net/weixin_39836173/article/details/86110011
+    // https://github.com/ant-design/babel-plugin-import
+    const rule = config.module.rules[1];
     const babelLoader = rule.oneOf && rule.oneOf[1];
 
     if (babelLoader && babelLoader.options) {
