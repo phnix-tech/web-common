@@ -1,5 +1,6 @@
 const cfg = require("@web-io/lint/stylelint");
-Object.assign(cfg.rules, {
-  // add extra rules
+const rules = cfg.rules || {};
+Object.assign(rules, {
+  // add or override rules
 });
 module.exports = cfg;

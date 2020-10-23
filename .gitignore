@@ -13,5 +13,5 @@ dist/
 # svn directory
 .svn
 
-# ignore cache files, e.g. eslint and stylelint cache files
+# eslint and stylelint cache files
 build/.cache/
