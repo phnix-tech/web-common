@@ -1,9 +1,11 @@
 /* eslint-disable */
 // 这是自动构建生成的文件，请勿单独修改
 
+"use strict";
 // ------------------------------------------------------------------
 // 注：修改该文件后请运行`npm run build`构建esm和cjs版本
 // ------------------------------------------------------------------
+Object.defineProperty(exports, "__esModule", { value: true });
 // env可以是浏览器或者nodejs环境
 const _window = (typeof window !== "undefined" ? window : {});
 // 对象解构语法会导致环境变量获取失败
@@ -48,4 +50,4 @@ const _env = {
     getValue,
     setValue
 };
-export default _env;
+exports.default = _env;
