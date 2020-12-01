@@ -178,16 +178,21 @@ export default function<
       },
 
       reset <P = Any>(searchParams?: Partial<SP>) {
-        const dispatchFn1 = dispatch as Dispatch<PageStoreAction<SP>>;
         if (searchParams) {
-          dispatchFn1({
+          const dispatchFn = dispatch as Dispatch<PageStoreAction<SP>>;
+          dispatchFn({
             type: ActionType.RESET,
             value: searchParams
           });
+        } else {
+          const dispatchFn = dispatch as Dispatch;
+          dispatchFn({
+            type: ActionType.RESET
+          });
         }
 
-        const dispatchFn2 = dispatch as GetStateMiddlewareDispatch<Dispatch, IState<T, SP, ES>>;
-        return dispatchFn2(({getState}) => {
+        const dispatchFn1 = dispatch as GetStateMiddlewareDispatch<Dispatch, IState<T, SP, ES>>;
+        return dispatchFn1(({getState}) => {
           const {table} = getState();
           if (table) {
             return table.reset<P, Partial<SP>>(searchParams);
