@@ -1,6 +1,6 @@
 import React from "react";
 import {Dispatch, MiddlewareAPI, Action, AnyAction} from "redux";
-import {Any} from "../../ts/types";
+import {Any, EmptyObject} from "../../ts/types";
 import {RTable} from "../../ts/types/Table";
 import {GetStateMiddlewareDispatch, MixedDispatch, IStore} from "./index";
 import createStores from "./createStore";
@@ -50,35 +50,45 @@ interface ISearchPageStore<C, S, SP, A extends Action = AnyAction> extends IStor
 
 }
 
-interface IState<T, SP> {
+type IState<T, SP, ES = EmptyObject> = {
   table: T | null;
   searchParams: SP;
-}
+} & ES;
 
 /**
  * @template SP - search params generic type
  * @template T - table api generic type
  * @template C - redux store context generic type
  * @param searchParams - initial search params state
+ * @param extraState - extra state
  * @param ctx - optional store context
  */
 export default function<
   SP = Record<string, unknown>,
+  ES = Record<string, unknown>,
   T extends RTable = RTable,
   C = null
-> (searchParams: SP, ctx: C | null = null): ISearchPageStore<C, IState<T, SP>, SP, PageStoreAction<IState<T, SP>>> {
+> (
+  searchParams: SP,
+  extraState?: ES,
+  ctx: C | null = null
+): ISearchPageStore<C, IState<T, SP, ES>, SP, PageStoreAction<IState<T, SP, ES>>> {
   searchParams = {
     ...searchParams
   };
 
-  const INIT_STATE: IState<T, SP> = {
+  // @ts-ignore: TS2322: Type '{ table: null; searchParams: SP; }' is not assignable to type 'IState<T, SP, ES>'.
+  const INIT_STATE: IState<T, SP, ES> = {
     table: null,
-    searchParams
+    searchParams,
+    // mixin extra state
+    ...extraState
   };
+
   const context = React.createContext<C>(ctx as C);
 
-  function reducer (state: IState<T, SP> | undefined, action: PageStoreAction<IState<T, SP>>) {
-    state = state as IState<T, SP>;
+  function reducer (state: IState<T, SP, ES> | undefined, action: PageStoreAction<IState<T, SP, ES>>) {
+    state = state as IState<T, SP, ES>;
     switch (action.type) {
       case ActionType.SET_STATE:
         state = {
@@ -111,19 +121,19 @@ export default function<
   }
 
   function createStore () {
-    return createStores<IState<T, SP>, PageStoreAction<IState<T, SP>>>(reducer, INIT_STATE);
+    return createStores<IState<T, SP, ES>, PageStoreAction<IState<T, SP, ES>>>(reducer, INIT_STATE);
   }
 
-  function mapStateToProps (state: IState<T, SP>) {
+  function mapStateToProps (state: IState<T, SP, ES>) {
     return {
       ...state
     };
   }
 
-  function mapDispatchToProps (dispatch: MixedDispatch): IMapDispatchToProps<IState<T, SP>, SP> {
+  function mapDispatchToProps (dispatch: MixedDispatch): IMapDispatchToProps<IState<T, SP, ES>, SP> {
     return {
       setState (state) {
-        const dispatchFn: Dispatch<PageStoreAction<IState<T, SP>>> = dispatch as Dispatch;
+        const dispatchFn: Dispatch<PageStoreAction<IState<T, SP, ES>>> = dispatch as Dispatch;
         return dispatchFn({
           type: ActionType.SET_STATE,
           value: state
@@ -139,14 +149,14 @@ export default function<
       },
 
       getState () {
-        const dispatchFn = dispatch as GetStateMiddlewareDispatch<Dispatch, IState<T, SP>>;
+        const dispatchFn = dispatch as GetStateMiddlewareDispatch<Dispatch, IState<T, SP, ES>>;
         return dispatchFn(({getState}: MiddlewareAPI) => {
           return getState();
         });
       },
 
       search <P = Any>(...rest: Any[]) {
-        const dispatchFn: GetStateMiddlewareDispatch<Dispatch, IState<T, SP>> = dispatch as GetStateMiddlewareDispatch;
+        const dispatchFn: GetStateMiddlewareDispatch<Dispatch, IState<T, SP, ES>> = dispatch as GetStateMiddlewareDispatch;
         return dispatchFn(({getState}) => {
           const {table} = getState();
           if (!table) {
@@ -157,7 +167,7 @@ export default function<
       },
 
       resetPageSearch <P = Any>(...rest: Any[]) {
-        const dispatchFn: GetStateMiddlewareDispatch<Dispatch, IState<T, SP>> = dispatch as GetStateMiddlewareDispatch;
+        const dispatchFn: GetStateMiddlewareDispatch<Dispatch, IState<T, SP, ES>> = dispatch as GetStateMiddlewareDispatch;
         return dispatchFn(({getState}) => {
           const {table} = getState();
           if (!table) {
@@ -168,17 +178,16 @@ export default function<
       },
 
       reset <P = Any>(searchParams?: Partial<SP>) {
-        let dispatchFn: Dispatch<PageStoreAction<IState<T, SP>>> | GetStateMiddlewareDispatch<Dispatch, IState<T, SP>>;
-        dispatchFn = dispatch as Dispatch<PageStoreAction<IState<T, SP>>>;
+        const dispatchFn1 = dispatch as Dispatch<PageStoreAction<SP>>;
         if (searchParams) {
-          dispatchFn({
+          dispatchFn1({
             type: ActionType.RESET,
             value: searchParams
           });
         }
 
-        dispatchFn = dispatch as GetStateMiddlewareDispatch<Dispatch, IState<T, SP>>;
-        return dispatchFn(({getState}) => {
+        const dispatchFn2 = dispatch as GetStateMiddlewareDispatch<Dispatch, IState<T, SP, ES>>;
+        return dispatchFn2(({getState}) => {
           const {table} = getState();
           if (table) {
             return table.reset<P, Partial<SP>>(searchParams);
@@ -190,7 +199,7 @@ export default function<
   }
 
   function withStore<P> (Component: React.ComponentType<Any>): React.FunctionComponent<P> {
-    return withStores<P, IState<T, SP>, PageStoreAction<IState<T, SP>>, C>(Component, {createStore, context});
+    return withStores<P, IState<T, SP, ES>, PageStoreAction<IState<T, SP, ES>>, C>(Component, {createStore, context});
   }
 
   return {
