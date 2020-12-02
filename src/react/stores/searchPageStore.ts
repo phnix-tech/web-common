@@ -65,7 +65,7 @@ type IState<T, SP, ES = EmptyObject> = {
  */
 export default function<
   SP = Record<string, unknown>,
-  ES = Record<string, unknown>,
+  ES = EmptyObject,
   T extends RTable = RTable,
   C = null
 > (
