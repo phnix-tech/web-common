@@ -9,7 +9,10 @@
     "lint": "run-p eslint stylelint",
     "eslint": "eslint --config ./eslintrc.js --cache --cache-location ./build/.cache/.eslintcache --ignore-pattern \"/src/vue/components/**\" --ext .js,jsx,ts,tsx ./",
     "stylelint": "stylelint --cache --cache-location ./build/.cache/.stylelintcache \"./**/*.scss\" \"./**/*.less\" \"./**/*.vue\"",
-    "build-env": "node ./build/build-env.js"
+    "build-env": "node ./build/build-env.js",
+    "build-ts-cjs": "tsc --project ./tsconfig-cjs.json",
+    "build-ts-esm": "tsc --project ./tsconfig-esm.json",
+    "build-ts-umd": "tsc --project ./tsconfig-umd.json"
   },
   "dependencies": {
     "vue": "2.6.10",
