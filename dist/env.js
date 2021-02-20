@@ -1,6 +1,3 @@
-// ------------------------------------------------------------------
-// 注：修改该文件后请运行`npm run build`构建esm和cjs版本
-// ------------------------------------------------------------------
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
         var v = factory(require, exports);
