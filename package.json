@@ -5,11 +5,12 @@
   "author": "leejefy <050934@gmail.com>",
   "private": true,
   "scripts": {
-    "build": "run-p lint build-env",
+    "build": "run-p lint build-ts",
     "lint": "run-p eslint stylelint",
-    "eslint": "eslint --config ./eslintrc.js --cache --cache-location ./build/.cache/.eslintcache --ignore-pattern \"/src/vue/components/**\" --ext .js,jsx,ts,tsx ./",
+    "eslint": "eslint --config ./eslintrc.js --cache --cache-location ./build/.cache/.eslintcache --ext .js,jsx,ts,tsx ./",
     "stylelint": "stylelint --cache --cache-location ./build/.cache/.stylelintcache \"./**/*.scss\" \"./**/*.less\" \"./**/*.vue\"",
     "build-env": "node ./build/build-env.js",
+    "build-ts": "run-p build-ts-cjs build-ts-esm build-ts-umd",
     "build-ts-cjs": "tsc --project ./tsconfig-cjs.json",
     "build-ts-esm": "tsc --project ./tsconfig-esm.json",
     "build-ts-umd": "tsc --project ./tsconfig-umd.json"
