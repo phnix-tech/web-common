@@ -1,3 +1,2 @@
-export default function (obj) {
-  return Object.prototype.toString.call(obj) === "[object Object]";
-}
+import isobj from "../../es/utils/isobj";
+export default isobj;
