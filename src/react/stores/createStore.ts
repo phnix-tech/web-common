@@ -1,7 +1,7 @@
 import {createStore, applyMiddleware, Reducer, Store, Action, AnyAction} from "redux";
 import getStateMiddleware from "./getStateMiddleware";
 import {State} from "./index";
-import {Any} from "../../ts/types";
+import {Any} from "../../types";
 
 /**
  * redux store factory

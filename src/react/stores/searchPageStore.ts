@@ -1,7 +1,7 @@
 import React from "react";
 import {Dispatch, MiddlewareAPI, Action, AnyAction} from "redux";
-import {Any, EmptyObject} from "../../ts/types";
-import {RTable} from "../../ts/types/Table";
+import {Any, EmptyObject} from "../../types";
+import {RTable} from "../../types/Table";
 import {GetStateMiddlewareDispatch, MixedDispatch, IStore} from "./index";
 import createStores from "./createStore";
 import withStores from "../components/withStore";

@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import {Action, AnyAction, Store} from "redux";
 import {Provider, ReactReduxContextValue} from "react-redux";
-import {Any, EmptyObject} from "../../ts/types";
+import {Any, EmptyObject} from "../../types";
 
 interface IProps<
   S = Any,
