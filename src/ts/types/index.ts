@@ -1,1 +1,1 @@
-export * from "../../../src-ts/types";
+export * from "../../types";

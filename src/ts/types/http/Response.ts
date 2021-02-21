@@ -1,3 +1,3 @@
-export * from "../../../../src-ts/types/http/Response";
-import Response from "../../../../src-ts/types/http/Response";
+export * from "../../../types/http/Response";
+import Response from "../../../types/http/Response";
 export default Response;

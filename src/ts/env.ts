@@ -1,2 +1,2 @@
-import env from "../../src-ts/env";
+import env from "../env";
 export default env;

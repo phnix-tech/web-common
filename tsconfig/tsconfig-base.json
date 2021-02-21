@@ -32,5 +32,13 @@
     "dist",
     "es",
     "lib"
+  ],
+  // if glob pattern doesn’t include a file extension
+  // only files with supported extensions are included (e.g. .ts, .tsx, and .d.ts by default, with .js and .jsx if allowJs is set to true)
+  // https://www.typescriptlang.org/tsconfig#include
+  // IntelliJ IDEA对`src`、`src/**/**`会检查vue文件!?
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
   ]
 }

@@ -1,2 +1,2 @@
-import http from "../../../../src-ts/utils/http";
+import http from "../../../utils/http";
 export default http;

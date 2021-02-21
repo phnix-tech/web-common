@@ -1,2 +1,2 @@
-import addUrlTimestamp from "../../../../src-ts/utils/http/addUrlTimestamp";
+import addUrlTimestamp from "../../../utils/http/addUrlTimestamp";
 export default addUrlTimestamp;

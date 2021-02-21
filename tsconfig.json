@@ -4,15 +4,5 @@
     // 不输出js文件，默认`false`，如果ts和js混合会导致提示js文件会被覆盖错误
     // https://www.typescriptlang.org/tsconfig#noEmit
     "noEmit": true
-  },
-  // if glob pattern doesn’t include a file extension
-  // only files with supported extensions are included (e.g. .ts, .tsx, and .d.ts by default, with .js and .jsx if allowJs is set to true)
-  // https://www.typescriptlang.org/tsconfig#include
-  // IntelliJ IDEA对`src`、`src/**/**`会检查vue文件!?
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src-ts/**/*.ts",
-    "src-ts/**/*.tsx"
-  ]
+  }
 }

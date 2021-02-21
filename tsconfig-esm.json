@@ -3,9 +3,5 @@
   "compilerOptions": {
     "outDir": "./es",
     "declaration": true
-  },
-  "include": [
-    "src-ts/**/*.ts",
-    "src-ts/**/*.tsx"
-  ]
+  }
 }

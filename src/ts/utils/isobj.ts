@@ -1,2 +1,2 @@
-import isobj from "../../../src-ts/utils/isobj";
+import isobj from "../../utils/isobj";
 export default isobj;

@@ -1,2 +1,2 @@
-import getURLParameter from "../../../src-ts/utils/getURLParameter";
+import getURLParameter from "../../utils/getURLParameter";
 export default getURLParameter;
