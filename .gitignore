@@ -17,20 +17,25 @@ build/.cache/
 
 dist/
 
-lib/
+lib/**
 !lib/env.js
 !lib/env.d.ts
 
-es/
-!es/types/index.d.ts
-!es/types/http/index.d.ts
-!es/types/http/Response.d.ts
+es/**
 !es/env.js
 !es/env.d.ts
-!es/utils/http/index.js
-!es/utils/http/index.d.ts
-!es/utils/http/addUrlTimestamp.js
-!es/utils/http/addUrlTimestamp.d.ts
+
+!es/types
+es/types/**
+!es/types/index.d.ts
+
+!es/types/http
+es/types/http/**
+!es/types/http/index.d.ts
+!es/types/http/Response.d.ts
+
+!es/utils
+es/utils/**
 !es/utils/addStyleSheet.js
 !es/utils/addStyleSheet.d.ts
 !es/utils/datetimeformatter.js
@@ -61,3 +66,10 @@ es/
 !es/utils/saveFile.d.ts
 !es/utils/uuid.js
 !es/utils/uuid.d.ts
+
+!es/utils/http
+es/utils/http/**
+!es/utils/http/index.js
+!es/utils/http/index.d.ts
+!es/utils/http/addUrlTimestamp.js
+!es/utils/http/addUrlTimestamp.d.ts
