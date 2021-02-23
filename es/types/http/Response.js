@@ -1,3 +1,0 @@
-/**
- * http response interface definition
- */
