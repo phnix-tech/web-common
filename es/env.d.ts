@@ -14,5 +14,5 @@ interface Env {
     getValue(key: string): EnvValue;
     setValue(key: string, val: EnvValue): void;
 }
-declare const _env: Env;
-export default _env;
+declare const env: Env;
+export default env;

@@ -6,7 +6,10 @@ const _window: Record<string, EnvValue> = (
 ) as Record<string, EnvValue>;
 
 // 对象解构语法会导致环境变量获取失败
-const env = process.env;
+const envObj = (
+  // @ts-ignore: 忽略某些环境下找不到process类型申明，比如cnpm环境，同时也让外部不用显示依赖`@types/node`
+  typeof process !== "undefined" ? process.env : {}
+) as Record<string, EnvValue>;
 
 /**
  * 在window或者process.env中获取全局变量或者环境变量值
@@ -16,7 +19,7 @@ const env = process.env;
  * @returns environment value
  */
 function getValue (key: string): EnvValue {
-  return _window[`___APP_${key}`] || env[`VUE_APP_${key}`] || env[`REACT_APP_${key}`];
+  return _window[`___APP_${key}`] || envObj[`VUE_APP_${key}`] || envObj[`REACT_APP_${key}`];
 }
 
 /**
@@ -35,10 +38,10 @@ function setValue (key: string, value: EnvValue) {
   // 同步预定义环境变量值，建议通过getValue和setValue形式读取环境变量
   switch (key) {
     case "PUBLIC_PATH":
-      _env.PUBLIC_PATH = value;
+      envObj.PUBLIC_PATH = value;
       break;
     case "BASE_URL":
-      _env.BASE_URL = value;
+      envObj.BASE_URL = value;
       break;
     default:
       break;
@@ -61,11 +64,11 @@ interface Env {
   setValue (key: string, val: EnvValue): void;
 }
 
-const _env: Env = {
-  PUBLIC_PATH: env.PUBLIC_PATH || getValue("PUBLIC_PATH"),
+const env: Env = {
+  PUBLIC_PATH: envObj.PUBLIC_PATH || getValue("PUBLIC_PATH"),
   BASE_URL: getValue("BASE_URL"),
   getValue,
   setValue
 };
 
-export default _env;
+export default env;
