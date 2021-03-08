@@ -33,6 +33,11 @@
     "lint-staged": "10.0.7",
     "rimraf": "3.0.2"
   },
+  "files": [
+    "dist",
+    "es",
+    "lib"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
