@@ -3,7 +3,7 @@
   "version": "1.1.0-dev1",
   "description": "前端公共仓库，包含文档说明、公共库函数、公共组件、构建脚本",
   "author": "leejefy <050934@gmail.com>",
-  "private": true,
+  "homepage": "https://gitee.com/phoenix-tech/web-common",
   "scripts": {
     "clean": "rimraf ./dist ./es ./lib",
     "build": "run-s lint clean build-ts",
