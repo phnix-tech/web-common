@@ -21,15 +21,15 @@ interface IProps<
  * @param Component - source component
  * @param props - wrap options
  */
-export default <
+function withStore<
   P extends EmptyObject,
   S = Any,
   A extends Action = AnyAction,
   C = null
->(
+> (
   Component: React.ComponentType<Any>,
   props: IProps<S, A, C>
-): React.FunctionComponent<P> => {
+): React.FunctionComponent<P> {
   const {
     createStore,
     context
@@ -56,4 +56,6 @@ export default <
       </Provider>
     );
   };
-};
+}
+
+export default withStore;

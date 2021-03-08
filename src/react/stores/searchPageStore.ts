@@ -56,9 +56,10 @@ type IState<T, SP, ES = EmptyObject> = {
 } & ES;
 
 /**
- * @template SP - search params generic type
- * @template T - table api generic type
- * @template C - redux store context generic type
+ * @template SP - search params type
+ * @template ES - extra state type
+ * @template T - table api type
+ * @template C - redux store context type
  * @param searchParams - initial search params state
  * @param extraState - extra state
  * @param ctx - optional store context
