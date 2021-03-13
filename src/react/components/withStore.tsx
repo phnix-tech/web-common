@@ -13,7 +13,9 @@ interface IProps<
 }
 
 /**
- * wrap component with redux store support
+ * wrap component with isolated redux store support,
+ * visit https://www.redux.org.cn/docs/recipes/IsolatingSubapps.html know more.
+ *
  * @template P - the returned FC component props type
  * @template S - redux store state type
  * @template A - dispatch actions type

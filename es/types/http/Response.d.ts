@@ -1,6 +1,3 @@
-/**
- * http response interface definition
- */
 import { Any } from "../index";
 /**
  * page list response `Page` data
@@ -27,8 +24,8 @@ export interface PageResponse<T = Any> {
 export declare type RawResponse<T = Any> = T;
 /**
  * server response raw data, it's commonly defined as json format
- * `{data: any, msg: string, status: number}`
- * `{data: any, message: string, success: boolean}`
+ * `{data: any; msg: string; status: number;}`
+ * `{data: any; message: string; success: boolean;}`
  */
 export declare type RawData<T = Any> = T;
 declare type Response = ObjectResponse | ArrayResponse | PageResponse;

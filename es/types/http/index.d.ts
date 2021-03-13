@@ -53,7 +53,7 @@ export interface Options {
 export declare type RequestOptions = string | Options;
 export declare type request = <R = Response>(opts: RequestOptions) => Promise<R>;
 export declare type createHttpRequest = <R = Response>(opts: Options) => Promise<R>;
-export default interface http {
+export default interface Http {
     createHttpRequest: createHttpRequest;
     request: request;
     get: request;

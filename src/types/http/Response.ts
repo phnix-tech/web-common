@@ -1,6 +1,6 @@
-/**
- * http response interface definition
- */
+// ====================================================================
+// http response interface definition
+// ====================================================================
 
 import {Any} from "../index";
 
@@ -34,8 +34,8 @@ export type RawResponse<T = Any> = T;
 
 /**
  * server response raw data, it's commonly defined as json format
- * `{data: any, msg: string, status: number}`
- * `{data: any, message: string, success: boolean}`
+ * `{data: any; msg: string; status: number;}`
+ * `{data: any; message: string; success: boolean;}`
  */
 export type RawData<T = Any> = T;
 

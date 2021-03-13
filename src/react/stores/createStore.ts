@@ -1,10 +1,13 @@
-import {createStore as _createStore, applyMiddleware, Reducer, Store, Action, AnyAction} from "redux";
+import {
+  createStore as _createStore, applyMiddleware,
+  Reducer, Store, Action, AnyAction
+} from "redux";
 import getStateMiddleware from "./getStateMiddleware";
 import {State} from "./index";
 import {Any} from "../../types";
 
 /**
- * redux store factory
+ * redux store factory with async action middleware
  * @param reducer
  * @param initState
  */

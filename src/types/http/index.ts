@@ -61,7 +61,7 @@ export type request = <R = Response>(opts: RequestOptions) => Promise<R>;
 
 export type createHttpRequest = <R = Response>(opts: Options) => Promise<R>;
 
-export default interface http {
+export default interface Http {
   createHttpRequest: createHttpRequest;
   request: request;
   get: request;
