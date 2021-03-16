@@ -51,13 +51,16 @@ function createsetters<
   };
 }
 
-export type Payload =
+export type Payload<
+  K extends string = string,
+  V = unknown
+> =
 | {
-  key: string;
-  value: unknown;
+  key: K;
+  value: V;
 }
-| [string, unknown]
-| Payload[];
+| [K, V]
+| Payload<K, V>[];
 
 function setVal (payload: Payload, setters: Record<string, unknown>) {
   let key, value;
