@@ -21,7 +21,6 @@
     "react": "16.14.0",
     "redux": "4.0.5",
     "react-redux": "7.2.1",
-    "vue-template-compiler": "2.6.10",
     "typescript": "3.9.7",
     "@types/react": "16.14.4",
     "@types/react-redux": "7.1.9",
@@ -34,7 +33,8 @@
   "files": [
     "dist",
     "es",
-    "lib"
+    "lib",
+    "build/alias.js"
   ],
   "license": "MIT",
   "repository": {
