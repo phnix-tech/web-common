@@ -39,6 +39,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/phoenix-tech/web-common.git"
+    "url": "git@gitee.com:phoenix-tech/web-common.git"
   }
 }
