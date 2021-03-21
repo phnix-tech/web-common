@@ -1,6 +1,5 @@
 # http://eslint.cn/docs/user-guide/configuring#ignoring-files-and-directories
 
-src/vue/components/**
 dist/**
 es/**
 lib/**
