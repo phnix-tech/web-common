@@ -11,7 +11,7 @@ const path = require("path");
 function resolve (...dir) {
   let projectRoot = path.join(__dirname, "../../..");
   // npm包引用
-  if (path.dirname(projectRoot) === "node_modules") {
+  if (path.basename(projectRoot) === "node_modules") {
     projectRoot = path.join(projectRoot, "..");
   }
   return path.join(projectRoot, ...dir);
