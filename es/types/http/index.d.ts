@@ -51,13 +51,21 @@ export interface Options {
  * 如果传递单个字符串参数则当做url参数处理
  */
 export declare type RequestOptions = string | Options;
-export declare type request = <R = Response>(opts: RequestOptions) => Promise<R>;
-export declare type createHttpRequest = <R = Response>(opts: Options) => Promise<R>;
+export declare type Request = <R = Response>(opts: RequestOptions) => Promise<R>;
+export declare type CreateHttpRequest = <R = Response>(opts: Options) => Promise<R>;
+/**
+ * @deprecated
+ */
+export declare type request = Request;
+/**
+ * @deprecated
+ */
+export declare type createHttpRequest = CreateHttpRequest;
 export default interface Http {
-    createHttpRequest: createHttpRequest;
-    request: request;
-    get: request;
-    post: request;
-    put: request;
-    delete: request;
+    createHttpRequest: CreateHttpRequest;
+    request: Request;
+    get: Request;
+    post: Request;
+    put: Request;
+    delete: Request;
 }

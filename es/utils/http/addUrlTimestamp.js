@@ -3,6 +3,7 @@ function isAry(obj) {
 }
 /**
  * add timestamp to url (GET method only) for disable cache
+ *
  * @param {string} url
  * @returns {string}
  */

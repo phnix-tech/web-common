@@ -57,15 +57,25 @@ export interface Options {
  */
 export type RequestOptions = string | Options;
 
-export type request = <R = Response>(opts: RequestOptions) => Promise<R>;
+export type Request = <R = Response>(opts: RequestOptions) => Promise<R>;
 
-export type createHttpRequest = <R = Response>(opts: Options) => Promise<R>;
+export type CreateHttpRequest = <R = Response>(opts: Options) => Promise<R>;
+
+/**
+ * @deprecated
+ */
+export type request = Request;
+
+/**
+ * @deprecated
+ */
+export type createHttpRequest = CreateHttpRequest;
 
 export default interface Http {
-  createHttpRequest: createHttpRequest;
-  request: request;
-  get: request;
-  post: request;
-  put: request;
-  delete: request;
+  createHttpRequest: CreateHttpRequest;
+  request: Request;
+  get: Request;
+  post: Request;
+  put: Request;
+  delete: Request;
 }

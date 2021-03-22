@@ -1,14 +1,14 @@
-import httpInterface, {
+import Http, {
   RequestOptions,
   Options,
-  createHttpRequest as createHttpRequestType
+  CreateHttpRequest
 } from "../../types/http";
 import Response from "../../types/http/Response";
 
 /**
  * 外部需要先设置`createHttpRequest`后才可正常调用接口
  */
-let createHttpRequest: createHttpRequestType;
+let createHttpRequest: CreateHttpRequest;
 
 function request<R = Response> (opts: RequestOptions) {
   const url = opts;
@@ -47,7 +47,7 @@ function deleteMethod<R = Response> (opts: RequestOptions) {
   return handleDefaultMethod<R>(opts, "delete");
 }
 
-const http: httpInterface = {
+const http: Http = {
   get createHttpRequest () {
     return createHttpRequest;
   },
