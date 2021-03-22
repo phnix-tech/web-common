@@ -1,0 +1,5 @@
+# cache files
+build/.cache/
+
+build/template/
+build/README.md

@@ -34,7 +34,7 @@
     "dist",
     "es",
     "lib",
-    "build/alias.js"
+    "build"
   ],
   "license": "MIT",
   "repository": {
