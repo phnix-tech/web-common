@@ -1,13 +1,8 @@
-interface Store {
-    state?: Record<string, unknown> | (() => Record<string, unknown>);
-    getters?: Record<string, unknown>;
-    mutations?: Record<string, unknown>;
-    actions?: Record<string, unknown>;
-    plugins?: unknown[];
-}
+import { StoreOptions } from "vuex";
 /**
  * Vuex Store混合
- * @returns object
+ *
+ * @returns
  */
-export default function (...args: Store[]): Store;
-export {};
+declare function extendstore<S>(...args: StoreOptions<S>[]): StoreOptions<S>;
+export default extendstore;

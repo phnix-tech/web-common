@@ -1,9 +1,10 @@
 import isobj from "./isobj";
 /**
  * Vuex Store混合
- * @returns object
+ *
+ * @returns
  */
-export default function () {
+function extendstore() {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
@@ -14,9 +15,12 @@ export default function () {
             return;
         }
         if (source.state) {
-            var state = store.state || {};
-            Object.assign(state, typeof source.state === "function" ?
-                source.state() : source.state);
+            var state = (store.state || {});
+            var s = source.state;
+            if (typeof s === "function") {
+                // @ts-ignore: Type 'S & Function' has no call signatures.ts(2349)
+                Object.assign(state, s());
+            }
             store.state = state;
         }
         if (source.getters) {
@@ -44,3 +48,4 @@ export default function () {
     });
     return store;
 }
+export default extendstore;

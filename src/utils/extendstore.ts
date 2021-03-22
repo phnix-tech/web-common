@@ -1,19 +1,13 @@
+import {StoreOptions} from "vuex";
 import isobj from "./isobj";
-
-interface Store {
-  state?: Record<string, unknown> | (() => Record<string, unknown>);
-  getters?: Record<string, unknown>;
-  mutations?: Record<string, unknown>;
-  actions?: Record<string, unknown>;
-  plugins?: unknown[];
-}
 
 /**
  * Vuex Store混合
- * @returns object
+ *
+ * @returns
  */
-export default function (...args: Store[]) {
-  const store: Store = {};
+function extendstore<S> (...args: StoreOptions<S>[]) {
+  const store: StoreOptions<S> = {};
 
   args.forEach(source => {
     if (!isobj(source)) {
@@ -21,9 +15,12 @@ export default function (...args: Store[]) {
     }
 
     if (source.state) {
-      const state = store.state || {};
-      Object.assign(state, typeof source.state === "function" ?
-        source.state() : source.state);
+      const state = (store.state || {}) as S;
+      const s = source.state;
+      if (typeof s === "function") {
+        // @ts-ignore: Type 'S & Function' has no call signatures.ts(2349)
+        Object.assign(state, s());
+      }
       store.state = state;
     }
 
@@ -55,3 +52,5 @@ export default function (...args: Store[]) {
 
   return store;
 }
+
+export default extendstore;
