@@ -1,11 +1,2 @@
-export default {
-  data () {
-    // https://element.eleme.cn/#/zh-CN/component/loading
-    return {
-      // v-loading
-      loading: false,
-      // element-loading-text
-      loadingText: ""
-    };
-  }
-};
+import loading from "../../../es/vue/mixins/loading";
+export default loading;

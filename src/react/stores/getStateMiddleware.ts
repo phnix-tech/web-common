@@ -1,5 +1,5 @@
 import {AnyAction, Dispatch, MiddlewareAPI} from "redux";
-import {Any} from "../../ts/types";
+import {Any} from "../../types";
 
 type MiddlewareFn = ({dispatch, getState}: MiddlewareAPI) => Any;
 type ReturnTypeInner = (action: AnyAction | MiddlewareFn) => AnyAction;

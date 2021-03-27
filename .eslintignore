@@ -1,0 +1,5 @@
+# http://eslint.cn/docs/user-guide/configuring#ignoring-files-and-directories
+
+dist/**
+es/**
+lib/**

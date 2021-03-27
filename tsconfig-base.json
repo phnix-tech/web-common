@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    // 排除js/jsx文件, 默认`false`，排除的意思就是模块解析时不会扫描js/jsx文件
+    // 建议在ts项目中不要混用ts + js，而是只允许ts，除非是基于js的项目在完全迁移到ts可以开启
+    // https://www.typescriptlang.org/tsconfig#allowJs
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react"
+  },
+  // if glob pattern doesn’t include a file extension
+  // only files with supported extensions are included (e.g. .ts, .tsx, and .d.ts by default, with .js and .jsx if allowJs is set to true)
+  // https://www.typescriptlang.org/tsconfig#include
+  // IntelliJ IDEA对`src`、`src/**/**`会检查vue文件!?
+  //
+  // 注：通过`extends`继承配置文件时跟文件路径相关配置相对路径是相对于当前文件而不是入口文件
+  // https://www.typescriptlang.org/tsconfig#extends
+  "include": [
+    "src"
+  ],
+  // exclude可以排除include里面包含的文件，就相当于include重写，比如src里面包含构建相关的ts文件在build目录中
+  // 可以加一条exclude `src/build/**/*`来排除构建文件，我们最好不要这样组织项目目录结构，因为会造成目录结构混乱
+  // https://www.typescriptlang.org/tsconfig#exclude
+  "exclude": [
+    "src/ts"
+  ]
+}

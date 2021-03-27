@@ -1,5 +1,2 @@
-import {Any} from "../types";
-
-export default function (obj: Any): boolean {
-  return Object.prototype.toString.call(obj) === "[object Object]";
-}
+import isobj from "../../utils/isobj";
+export default isobj;
