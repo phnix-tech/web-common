@@ -1,6 +1,6 @@
 import React from "react";
 import {Action, AnyAction, Dispatch, MiddlewareAPI, PreloadedState, Store} from "redux";
-import {Any, EmptyObject} from "../../ts/types";
+import {Any, EmptyObject} from "../../types";
 
 export type State<S = Record<string, Any>> = PreloadedState<S>;
 

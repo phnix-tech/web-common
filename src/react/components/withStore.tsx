@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import {Action, AnyAction, Store} from "redux";
 import {Provider, ReactReduxContextValue} from "react-redux";
-import {Any, EmptyObject} from "../../ts/types";
+import {Any, EmptyObject} from "../../types";
 
 interface IProps<
   S = Any,
@@ -13,7 +13,9 @@ interface IProps<
 }
 
 /**
- * wrap component with redux store support
+ * wrap component with isolated redux store support,
+ * visit https://www.redux.org.cn/docs/recipes/IsolatingSubapps.html know more.
+ *
  * @template P - the returned FC component props type
  * @template S - redux store state type
  * @template A - dispatch actions type
@@ -21,15 +23,15 @@ interface IProps<
  * @param Component - source component
  * @param props - wrap options
  */
-export default <
+function withStore<
   P extends EmptyObject,
   S = Any,
   A extends Action = AnyAction,
   C = null
->(
+> (
   Component: React.ComponentType<Any>,
   props: IProps<S, A, C>
-): React.FunctionComponent<P> => {
+): React.FunctionComponent<P> {
   const {
     createStore,
     context
@@ -56,4 +58,6 @@ export default <
       </Provider>
     );
   };
-};
+}
+
+export default withStore;
