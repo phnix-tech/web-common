@@ -36,7 +36,5 @@
   // exclude可以排除include里面包含的文件，就相当于include重写，比如src里面包含构建相关的ts文件在build目录中
   // 可以加一条exclude `src/build/**/*`来排除构建文件，我们最好不要这样组织项目目录结构，因为会造成目录结构混乱
   // https://www.typescriptlang.org/tsconfig#exclude
-  "exclude": [
-    "src/ts"
-  ]
+  "exclude": []
 }
