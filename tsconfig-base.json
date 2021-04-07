@@ -20,6 +20,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "importHelpers": true,
     "jsx": "react"
   },
   // if glob pattern doesn’t include a file extension
