@@ -18,6 +18,3 @@ build/.cache/
 dist/
 lib/
 es/
-
-# typedoc
-docs/
