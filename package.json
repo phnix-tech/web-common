@@ -5,8 +5,8 @@
   "author": "leejefy <050934@gmail.com>",
   "homepage": "https://gitee.com/phoenix-tech/web-common",
   "scripts": {
-    "clean": "rimraf ./dist ./es ./lib",
-    "build": "run-s lint clean build-ts add-module-exports-env",
+    "clean": "rimraf ./dist ./es ./lib ./docs",
+    "build": "run-s lint clean build-ts add-module-exports-env docs",
     "lint": "run-p eslint stylelint",
     "lint:fix": "run-p eslint stylelint",
     "eslint": "eslint --cache --cache-location ./build/.cache/.eslintcache --ext .js,.jsx,.ts,.tsx ./",
@@ -17,7 +17,8 @@
     "build-ts-cjs": "tsc --project ./tsconfig-cjs.json",
     "build-ts-esm": "tsc --project ./tsconfig-esm.json",
     "build-ts-umd": "tsc --project ./tsconfig-umd.json",
-    "add-module-exports-env": "node ./scripts/add-module-exports-env.js"
+    "add-module-exports-env": "node ./scripts/add-module-exports-env.js",
+    "docs": "npx typedoc"
   },
   "dependencies": {
     "tslib": "2.2.0"
@@ -28,12 +29,13 @@
     "react": "16.14.0",
     "redux": "4.0.5",
     "react-redux": "7.2.1",
-    "typescript": "3.9.7",
+    "typescript": "4.3.5",
     "@types/react": "16.14.4",
     "@types/react-redux": "7.1.9",
     "@babel/core": "7.14.6",
     "@babel/preset-env": "7.14.7",
     "babel-plugin-add-module-exports": "1.0.4",
+    "typedoc": "0.21.3",
     "npm-run-all": "4.1.5",
     "@web-io/lint": "1.0.0",
     "husky": "4.3.8",
