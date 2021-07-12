@@ -10,13 +10,18 @@ import Response from "../../types/http/Response";
  */
 let createHttpRequest: CreateHttpRequest;
 
+function isOptions (opts: RequestOptions): opts is Options {
+  return Object.prototype.toString.call(opts) === "[object Object]";
+}
+
 function request<R = Response> (opts: RequestOptions) {
+  if (!createHttpRequest) {
+    throw new TypeError("createHttpRequest must be set before send request");
+  }
+
   const url = opts;
   if (typeof url === "string") {
     opts = {url};
-  }
-  if (!createHttpRequest) {
-    throw new TypeError("createHttpRequest must be set before send request");
   }
   return createHttpRequest<R>(opts as Options);
 }
@@ -27,11 +32,13 @@ function handleDefaultMethod<R = Response> (opts: RequestOptions, method: Option
     opts = {url};
   }
 
-  opts = opts as Options;
-  opts = {
-    ...opts,
-    method
-  };
+  if (isOptions(opts)) {
+    opts = {
+      ...opts,
+      method
+    };
+  }
+
   return request<R>(opts);
 }
 

@@ -40,19 +40,29 @@ export interface Options {
    */
   errmsg?: boolean;
   /**
-   * 是否返回raw response，比如axios response.data和response
+   * 是否返回raw response，比如axios response.data和response  
    * 注意：由于promise resolve只能传递一个参数，请用数组解构接受多个参数
-   * Promise<[R, RawData, RawResponse]>
+   * `Promise<[R, RawData, RawResponse]>`
    */
   resp?: boolean;
   /**
    * 请求超时时间, 默认10s
    */
   timeout?: number;
+  /**
+   * loading功能标识符，loading功能表示在网络请求前显示`加载中...`或者`转圈圈`等实现方具体定义的效果，请求完毕隐藏loading。  
+   * 默认`false`或者`undefined`表示无loading功能，如果传递`true`实现方需要实现loading功能，
+   * 比如在小程序中调用`wx.showLoading` - https://developers.weixin.qq.com/miniprogram/dev/api/ui/interaction/wx.showLoading.html，在element ui中调用`Loading.service(options)` - https://element.eleme.cn/#/zh-CN/component/loading#fu-wu 实现加载中功能。
+   */
+  loading?: boolean;
+  /**
+   * 请求头
+   */
+  headers?: Record<string, string>;
 }
 
 /**
- * request options
+ * request options  
  * 如果传递单个字符串参数则当做url参数处理
  */
 export type RequestOptions = string | Options;
