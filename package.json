@@ -18,7 +18,8 @@
     "build-ts-esm": "tsc --project ./tsconfig-esm.json",
     "build-ts-umd": "tsc --project ./tsconfig-umd.json",
     "add-module-exports-env": "node ./scripts/add-module-exports-env.js",
-    "docs": "npx typedoc"
+    "docs": "npx typedoc",
+    "test": "npx jest"
   },
   "dependencies": {
     "tslib": "2.2.0"
@@ -36,6 +37,10 @@
     "@babel/preset-env": "7.14.7",
     "babel-plugin-add-module-exports": "1.0.4",
     "typedoc": "0.21.3",
+    "ts-node": "10.1.0",
+    "jest": "27.0.6",
+    "@types/jest": "26.0.24",
+    "ts-jest": "27.0.3",
     "npm-run-all": "4.1.5",
     "@web-io/lint": "1.0.0",
     "husky": "4.3.8",
