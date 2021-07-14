@@ -5,21 +5,19 @@ function isAry (obj: Any) {
 }
 
 /**
- * add timestamp to url (GET method only) for disable cache
+ * add timestamp to url (GET method only) for disable cache  
+ * 使用下划线`_`参数作为缓存参数，such as `/api/issue?_=1626227033424`
  *
- * @param {string} url
- * @returns {string}
+ * @param url pathname或者带query string参数的url
+ * @returns
  */
-export default function (url = ""): string {
-  const
-    segments = url.split("?")
-      .filter(segment => segment.trim() !== ""),
-    kvObj: Record<string, Any> = {};
+function addUrlTimestamp (url = ""): string {
+  const segments = url.split("?").filter(segment => segment.trim() !== "");
+  const kvObj: Record<string, Any> = {};
 
   if (segments.length > 1) {
-    const
-      search = segments[1],
-      kv = search.split("&");
+    const search = segments[1];
+    const kv = search.split("&");
 
     kv.forEach(str => {
       const equalIdx = str.indexOf("=");
@@ -28,10 +26,11 @@ export default function (url = ""): string {
         return;
       }
 
-      const
-        key = str.substring(0, equalIdx),
-        value = decodeURIComponent((equalIdx + 1 <= str.length - 1) ?
-          str.substring(equalIdx + 1) : "");
+      const key = str.substring(0, equalIdx);
+      const value = decodeURIComponent(
+        (equalIdx + 1 <= str.length - 1) ?
+          str.substring(equalIdx + 1) : ""
+      );
 
       if (!kvObj.hasOwnProperty(key)) {
         kvObj[key] = value;
@@ -70,3 +69,5 @@ export default function (url = ""): string {
 
   return url;
 }
+
+export default addUrlTimestamp;

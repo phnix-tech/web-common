@@ -4,5 +4,5 @@
  */
 module.exports = {
   "./**/*.{js,jsx,ts,tsx}": "eslint",
-  "./src/**/*.{scss,less,vue}": "stylelint"
+  "./**/*.{scss,less,vue}": "stylelint"
 };

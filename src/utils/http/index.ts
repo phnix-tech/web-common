@@ -23,6 +23,11 @@ function request<R = Response> (opts: RequestOptions) {
   if (typeof url === "string") {
     opts = {url};
   }
+
+  if (isOptions(opts)) {
+    opts.method = opts.method || "get";
+  }
+
   return createHttpRequest<R>(opts as Options);
 }
 
@@ -54,6 +59,9 @@ function deleteMethod<R = Response> (opts: RequestOptions) {
   return handleDefaultMethod<R>(opts, "delete");
 }
 
+/**
+ * 通用http接口实现，注：外部需要实现`createHttpRequest`方法后才可正常调用接口
+ */
 const http: Http = {
   get createHttpRequest () {
     return createHttpRequest;

@@ -3,9 +3,10 @@ const regex = /^\s*data:([a-z]+\/[a-z0-9]+(;[a-z-]+=[a-z0-9-]+)?)?(;base64)?,[a-
 
 /**
  * 检查是否是dataURL协议格式`data:`内容
- * https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs
+ * 
  * @param src
- * @return {boolean}
+ * @return
  */
 function isDataUrl (src?: string) {
   src = src || "";

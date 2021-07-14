@@ -18,6 +18,9 @@ export type ObjectParam = ObjectParams;
  */
 export type Params = Any[] | ObjectParams;
 
+/**
+ * request options
+ */
 export interface Options {
   /**
    * request url
@@ -52,7 +55,7 @@ export interface Options {
   /**
    * loading功能标识符，loading功能表示在网络请求前显示`加载中...`或者`转圈圈`等实现方具体定义的效果，请求完毕隐藏loading。  
    * 默认`false`或者`undefined`表示无loading功能，如果传递`true`实现方需要实现loading功能，
-   * 比如在小程序中调用`wx.showLoading` - https://developers.weixin.qq.com/miniprogram/dev/api/ui/interaction/wx.showLoading.html，在element ui中调用`Loading.service(options)` - https://element.eleme.cn/#/zh-CN/component/loading#fu-wu 实现加载中功能。
+   * 比如在小程序中调用`wx.showLoading` - https://developers.weixin.qq.com/miniprogram/dev/api/ui/interaction/wx.showLoading.html 在element ui中调用`Loading.service(options)` - https://element.eleme.cn/#/zh-CN/component/loading#fu-wu 实现加载中功能。
    */
   loading?: boolean;
   /**
@@ -67,20 +70,33 @@ export interface Options {
  */
 export type RequestOptions = string | Options;
 
+/**
+ * @template R Type of response，默认为通用响应类型，建议实现方内部处理好接口数据后将真实data数据resolve到外部，外部在调用api接口时可传递对应data类型泛型推断出相应数据类型。
+ * @param opts Request options
+ * @returns Reponse Promise
+ */
 export type Request = <R = Response>(opts: RequestOptions) => Promise<R>;
 
+/**
+ * @template R Type of response，默认为通用响应类型，建议实现方内部处理好接口数据后将真实data数据resolve到外部，外部在调用api接口时可传递对应data类型泛型推断出相应数据类型。
+ * @param opts Request options
+ * @returns Reponse Promise
+ */
 export type CreateHttpRequest = <R = Response>(opts: Options) => Promise<R>;
 
 /**
- * @deprecated
+ * @deprecated, use `Request` instead
  */
 export type request = Request;
 
 /**
- * @deprecated
+ * @deprecated, use `CreateHttpRequest` instead
  */
 export type createHttpRequest = CreateHttpRequest;
 
+/**
+ * 通用http接口定义，具体实现参考`../../utils/http`
+ */
 export default interface Http {
   createHttpRequest: CreateHttpRequest;
   request: Request;
