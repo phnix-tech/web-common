@@ -8,7 +8,7 @@
     "clean": "rimraf ./dist ./es ./lib ./docs",
     "build": "run-s lint clean build-ts add-module-exports-env docs",
     "lint": "run-p eslint stylelint",
-    "lint:fix": "run-p eslint stylelint",
+    "lint:fix": "run-p eslint:fix stylelint:fix",
     "eslint": "eslint --cache --cache-location ./build/.cache/.eslintcache --ext .js,.jsx,.ts,.tsx ./",
     "eslint:fix": "eslint --fix --cache --cache-location ./build/.cache/.eslintcache --ext .js,.jsx,.ts,.tsx ./",
     "stylelint": "stylelint --cache --cache-location ./build/.cache/.stylelintcache \"./**/*.{scss,less,vue}\"",
