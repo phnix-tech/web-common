@@ -56,7 +56,7 @@ function logFn (
 
   msgs = fmtLogMessage(level, msgs);
   // send logging firstly
-  sendLogToServer(level, msgs, isSend);
+  sendLogToServer(level, msgs, isSend, Logging.SEND_TO_SERVER);
 
   if (isNotLogging) {
     return;
@@ -144,12 +144,31 @@ class Logging {
   static DDEH = true;
 
   /**
-   * send logging to server flag  
-   * logging will be send to server by default in browser environment  
+   * send logging to server flag, default not send log to server  
+   * note: if set `true`, only send `ERROR` level log to server  
+   * you can use last param as boolean flag control send log to server  
    * nodejs env no need send logging  
    * useful for disable it if debug error  
    */
-  static SEND = isBrowserEnv;
+  static SEND = false;
+
+  /**
+   * send logging to server handler, you can use it implement your own logging logic
+   * 
+   * @param level logging level
+   * @param msgs logging messages, note the first two elements are formtted time & level tag  
+   * if you don't want it, you can remove it
+   */
+  static SEND_TO_SERVER = function (level: LEVEL, msgs: unknown[]) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/p/log?_=" + new Date().getTime(), true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.send(JSON.stringify({
+      level,
+      // remove time & level tag
+      msg: msgs.slice(2).join(" ")
+    }));
+  };
 
   /**
    * logging message using Console.trace api if supported
@@ -296,6 +315,18 @@ class Logging {
     }
     return this;
   }
+
+  /**
+   * 
+   * @param sendToServer send logging to server handler
+   * @returns 
+   */
+  sendToServer (sendToServer?: typeof Logging.SEND_TO_SERVER) {
+    if (sendToServer) {
+      Logging.SEND_TO_SERVER = sendToServer;
+    }
+    return this;
+  }
 }
 
 /**
@@ -386,23 +417,22 @@ function hasSendFlagInLogParam (msgs: unknown[]) {
  * @ignore
  * @param level
  * @param msgs
- * @param isSend {boolean} - optional flag for control send log to server
+ * @param isSend - optional flag for control send log to server
+ * @param sendToServer send logging to server handler
  */
-function sendLogToServer (level: LEVEL, msgs: unknown[], isSend: boolean) {
+function sendLogToServer (
+  level: LEVEL,
+  msgs: unknown[],
+  isSend: boolean,
+  sendToServer: typeof Logging.SEND_TO_SERVER
+) {
   if (!isBrowserEnv) {
     return;
   }
 
   // Logging.SEND high priority
   if (Logging.SEND && isSend) {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/p/log?_=" + new Date().getTime(), true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.send(JSON.stringify({
-      level,
-      // remove time & level tag
-      msg: msgs.slice(2).join(" ")
-    }));
+    sendToServer(level, msgs);
   }
 }
 
