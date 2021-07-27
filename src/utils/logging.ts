@@ -64,20 +64,40 @@ function logFn (
 
   /* eslint-disable no-console */
   methodName = methodName.toLowerCase() as CONSOLE_METHOD_NAME;
+
+  // assert方法第一个参数为boolean处理
+  if (methodName === "assert") {
+    const [condition, ...assertMsgs] = msgs;
+    switch (typeof console.assert) {
+      case "function":
+        try {
+          console.assert.apply(console, [condition as boolean, ...assertMsgs]);
+        } catch (e) {
+          console.warn(e);
+        }
+        break;
+      // old ie
+      case "object":
+        try {
+          // join varargs message in space separated
+          console.assert(condition as boolean, Array.prototype.join.call(assertMsgs, " "));
+        } catch (e) {
+          console.warn(e);
+        }
+        break;
+    }
+    return;
+  }
+
   const method = console[methodName];
   const type = typeof method;
 
   switch (type) {
     case "function":
-      if (typeof method.apply === "function") {
-        try {
-          // @ts-ignore: Argument of type 'unknown[]' is not assignable to parameter of type
-          // '[value: any, message?: string | undefined, ...optionalParams: any[]]'.
-          // Source provides no match for required element at position 0 in target.ts(2345)
-          method.apply(console, msgs);
-        } catch (e) {
-          console.warn(e);
-        }
+      try {
+        method.apply(console, msgs);
+      } catch (e) {
+        console.warn(e);
       }
       break;
     // old ie
@@ -203,8 +223,8 @@ class Logging {
    * @memberOf fe/Logging
    * @method assert
    */
-  assert (...msgs: unknown[]) {
-    logFn.call(null, CONSOLE_METHOD_NAME.ASSERT, Logging.LEVEL.ASSERT, msgs);
+  assert (condition?: boolean, ...msgs: unknown[]) {
+    logFn.call(null, CONSOLE_METHOD_NAME.ASSERT, Logging.LEVEL.ASSERT, [condition, ...msgs]);
     return this;
   }
 
