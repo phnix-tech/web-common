@@ -1,7 +1,6 @@
 /**
  * set browser cookie
  * 
- * @method setCookie
  * @param cookieName
  * @param value
  * @param expireTime

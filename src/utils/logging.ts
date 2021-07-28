@@ -67,11 +67,12 @@ function logFn (
 
   // assert方法第一个参数为boolean处理
   if (methodName === "assert") {
-    const [condition, ...assertMsgs] = msgs;
+    const [condition, msg, ...assertMsgs] = msgs;
     switch (typeof console.assert) {
       case "function":
         try {
-          console.assert.apply(console, [condition as boolean, ...assertMsgs]);
+          // lib.dom.d.ts和@types/node console.d.ts类型定义不同
+          console.assert.apply(console, [condition as boolean, msg as string, ...assertMsgs]);
         } catch (e) {
           console.warn(e);
         }
@@ -172,8 +173,7 @@ class Logging {
 
   /**
    * logging message using Console.trace api if supported
-   * @memberOf fe/Logging
-   * @method log
+   * 
    * @param msgs
    */
   log (...msgs: unknown[]) {
@@ -188,8 +188,6 @@ class Logging {
   }
 
   /**
-   * @memberOf fe/Logging
-   * @method debug
    * @param msgs
    */
   debug (...msgs: unknown[]) {
@@ -204,8 +202,6 @@ class Logging {
   }
 
   /**
-   * @memberOf fe/Logging
-   * @method debug
    * @param msgs
    */
   info (...msgs: unknown[]) {
@@ -214,8 +210,6 @@ class Logging {
   }
 
   /**
-   * @memberOf fe/Logging
-   * @method warn
    * @param msgs
    */
   warn (...msgs: unknown[]) {
@@ -224,8 +218,6 @@ class Logging {
   }
 
   /**
-   * @memberOf fe/Logging
-   * @method error
    * @param msgs
    */
   error (...msgs: unknown[]) {
@@ -239,8 +231,8 @@ class Logging {
   }
 
   /**
-   * @memberOf fe/Logging
-   * @method assert
+   * @param condition
+   * @param msgs
    */
   assert (condition?: boolean, ...msgs: unknown[]) {
     logFn.call(null, CONSOLE_METHOD_NAME.ASSERT, Logging.LEVEL.ASSERT, [condition, ...msgs]);
@@ -248,8 +240,7 @@ class Logging {
   }
 
   /**
-   * @memberOf fe/Logging
-   * @method trace
+   * @param msgs
    */
   trace (...msgs: unknown[]) {
     logFn.call(null, CONSOLE_METHOD_NAME.TRACE, Logging.LEVEL.TRACE, msgs);
@@ -258,8 +249,7 @@ class Logging {
 
   /**
    * public method control logging message or not
-   * @memberOf fe/Logging
-   * @method enabled
+   * 
    * @param flag
    */
   enabled (flag?: boolean) {
@@ -273,8 +263,7 @@ class Logging {
   }
 
   /**
-   * @memberOf fe/Logging
-   * @method ddeh
+   * @param ddeh whether disable default event hanndler or not
    */
   ddeh (ddeh?: boolean | null) {
     if (arguments.length === 0) {
@@ -290,8 +279,7 @@ class Logging {
   }
 
   /**
-   * @memberOf fe/Logging
-   * @method send
+   * @param send whether send loging to server or not
    */
   send (send?: boolean) {
     if (arguments.length === 0) {
@@ -304,8 +292,7 @@ class Logging {
   }
 
   /**
-   * @memberOf fe/Logging
-   * @method ensureErrorHandler
+   * ensure resgiter window onerror event for capture global error events
    */
   ensureErrorHandler () {
     // window.addEventListener("error", errorHandler);

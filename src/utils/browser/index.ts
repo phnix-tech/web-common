@@ -12,8 +12,7 @@ const browserMap = (isBrowserEnv ? browserDetect(navigator.userAgent) : {}) || {
 
 /**
  * check if mobile, Credits: http://goo.gl/SfjfGz
- * @memberOf fe/Functions.browser
- * @method isMobile
+ * @param ua user agent
  */
 function isMobile (ua?: string) {
   ua = ua || navigator.userAgent;
@@ -42,8 +41,7 @@ function isMobile (ua?: string) {
 }
 
 /**
- * @memberOf fe/Functions.browser
- * @method isiOS
+ * @param ua user agent
  */
 function isiOS (ua?: string) {
   ua = ua || navigator.userAgent;
@@ -51,8 +49,7 @@ function isiOS (ua?: string) {
 }
 
 /**
- * @memberOf fe/Functions.browser
- * @method isAndroid
+ * @param ua user agent
  */
 function isAndroid (ua?: string) {
   ua = ua || navigator.userAgent;
@@ -60,8 +57,7 @@ function isAndroid (ua?: string) {
 }
 
 /**
- * @memberOf fe/Functions.browser
- * @method isWechat
+ * @param ua user agent
  */
 function isWechat (ua?: string) {
   ua = ua || navigator.userAgent;
@@ -69,8 +65,7 @@ function isWechat (ua?: string) {
 }
 
 /**
- * @memberOf fe/Functions.browser
- * @method isWeibo
+ * @param ua user agent
  */
 function isWeibo (ua?: string) {
   ua = ua || navigator.userAgent;
@@ -78,8 +73,7 @@ function isWeibo (ua?: string) {
 }
 
 /**
- * @memberOf fe/Functions.browser
- * @method isGsmIos
+ * @param ua user agent
  */
 function isGsmIos (ua?: string) {
   ua = ua || navigator.userAgent;
@@ -90,8 +84,7 @@ function isGsmIos (ua?: string) {
 }
 
 /**
- * @memberOf fe/Functions.browser
- * @method isGsmAndroid
+ * @param ua user agent
  */
 function isGsmAndroid (ua?: string) {
   ua = ua || navigator.userAgent;
@@ -102,8 +95,7 @@ function isGsmAndroid (ua?: string) {
 }
 
 /**
- * @memberOf fe/Functions.browser
- * @method isGSM
+ * @param ua user agent
  */
 function isGSM (ua?: string) {
   ua = ua || navigator.userAgent;

@@ -5,7 +5,7 @@ type Browser = Pick<BrowserMap, BrowserName | "version">;
 
 /**
  * browser detection, borrowed from jquery - http://api.jquery.com/jquery.browser/
- * @memberOf fe/Functions
+ * 
  * @param ua user agent
  * @returns browser object with name and version
  */
