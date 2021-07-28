@@ -19,7 +19,7 @@
     "build-ts-umd": "tsc --project ./tsconfig-umd.json",
     "add-module-exports-env": "node ./scripts/add-module-exports-env.js",
     "docs": "npx web-io-tsdoc",
-    "test": "npx jest"
+    "test": "npx web-io-jest"
   },
   "dependencies": {
     "tslib": "2.2.0"
@@ -41,7 +41,7 @@
     "lint-staged": "10.5.4",
     "rimraf": "3.0.2",
     "@web-io/lint": "1.0.0",
-    "@web-io/jest": "file:deps/web-io-jest-1.0.0-dev1.tgz",
+    "@web-io/jest": "file:deps/web-io-jest-1.0.0-dev2.tgz",
     "@web-io/tsdoc": "file:deps/web-io-tsdoc-1.0.0-dev1.tgz"
   },
   "files": [
