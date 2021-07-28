@@ -1,9 +1,3 @@
-import type {Config} from "@jest/types";
+import {defineConfig} from "@web-io/jest";
 
-// https://jestjs.io/zh-Hans/docs/configuration
-const config: Config.InitialOptions = {
-  preset: "ts-jest",
-  testEnvironment: "node"
-};
-
-export default config;
+export default defineConfig();

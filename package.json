@@ -6,7 +6,7 @@
   "homepage": "https://gitee.com/phoenix-tech/web-common",
   "scripts": {
     "clean": "rimraf ./dist ./es ./lib ./docs",
-    "build": "run-s lint clean build-ts add-module-exports-env docs",
+    "build": "run-s clean lint test build-ts add-module-exports-env docs",
     "lint": "run-p eslint stylelint",
     "lint:fix": "run-p eslint:fix stylelint:fix",
     "eslint": "eslint --cache --cache-location ./build/.cache/.eslintcache --ext .js,.jsx,.ts,.tsx ./",
@@ -37,15 +37,12 @@
     "@babel/preset-env": "7.14.7",
     "babel-plugin-add-module-exports": "1.0.4",
     "typedoc": "0.21.3",
-    "ts-node": "10.1.0",
-    "jest": "27.0.6",
-    "@types/jest": "26.0.24",
-    "ts-jest": "27.0.3",
     "npm-run-all": "4.1.5",
-    "@web-io/lint": "1.0.0",
     "husky": "4.3.8",
     "lint-staged": "10.5.4",
-    "rimraf": "3.0.2"
+    "rimraf": "3.0.2",
+    "@web-io/lint": "1.0.0",
+    "@web-io/jest": "file:deps/web-io-jest-1.0.0-dev1.tgz"
   },
   "files": [
     "dist",
