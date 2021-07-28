@@ -3,11 +3,6 @@ import browserDetect from "./browserDetect";
 
 const isBrowserEnv = !!(typeof window !== "undefined" && window);
 
-/**
- * @namespace fe/Functions.browser
- * @description browser & version object, see jquery.browser  
- * we may extend our customize property, e.g. ie8, ie9
- */
 const browserMap = (isBrowserEnv ? browserDetect(navigator.userAgent) : {}) || {};
 
 /**
@@ -116,4 +111,7 @@ const browser: Browser = {
 
 export default browser;
 
-export {isiOS, isAndroid, isWechat, isWeibo, isGsmIos, isGsmAndroid, isGSM};
+export {
+  isiOS, isAndroid, isWechat, isWeibo,
+  isGsmIos, isGsmAndroid, isGSM, browserDetect
+};

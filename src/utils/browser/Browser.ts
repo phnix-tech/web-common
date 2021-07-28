@@ -3,6 +3,10 @@ type BrowserName =
 | "msie" | "trident" | "ie5" | "ie6" | "ie7" | "ie8" | "ie9"
 | "ie10" | "ie11";
 
+/**
+ * browser & version object, see `jquery.browser`  
+ * we may extend our customize property, e.g. ie8, ie9
+ */
 type Browser = {
   [key in BrowserName]?: boolean;
 } & {

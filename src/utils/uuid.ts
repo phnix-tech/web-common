@@ -1,7 +1,8 @@
 /**
- * @param prefix
+ * 36位uuid生成器，第15位固定数字4，比如`3d94e4dd-9576-45de-8b29-1c9a10d38e4b`  
+ * 
+ * @param prefix 可选前缀
  * @returns uuid string
- * @desc get uuid, borrowed from `gs-common/fe/Functions@uuid`
  */
 function uuid (prefix?: string) {
   prefix = prefix || "";
