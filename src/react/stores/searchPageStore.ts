@@ -236,6 +236,9 @@ function searchPageStore<
     context,
     createStore,
     withStore,
+    /**
+     * 外部可不使用`mapStateToProps`，因为也可通过`props.getState`获取状态数据.
+     */
     mapStateToProps,
     mapDispatchToProps
   };
