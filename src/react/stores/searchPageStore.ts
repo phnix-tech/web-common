@@ -76,15 +76,15 @@ type IState<T, SP, ES = EmptyObject> = {
 } & ES;
 
 /**
- * 搜索页store函数, 
+ * 搜索页store函数.
  * 
- * @template SP - search params type
- * @template ES - extra state type
- * @template T - table api type
- * @template C - redux store context type
- * @param searchParams - initial search params state
- * @param extraState - extra state
- * @param ctx - optional store context
+ * @template SP Type of search params.
+ * @template ES Type of extra state params.
+ * @template T Type table api.
+ * @template C Type of redux store context.
+ * @param searchParams Initial search params state.
+ * @param extraState Extra state params.
+ * @param ctx Optional store context, default `null`.
  */
 function searchPageStore<
   SP = Record<string, unknown>,
@@ -92,10 +92,12 @@ function searchPageStore<
   T extends ITable = ITable,
   C = null
 > (
-  searchParams: SP,
+  searchParams?: SP,
   extraState?: ES,
   ctx: C | null = null
 ): ISearchPageStore<C, IState<T, SP, ES>, SP, PageStoreAction<IState<T, SP, ES>>> {
+  // @ts-ignore: Type '{}' is not assignable to type 'SP'.
+  // 'SP' could be instantiated with an arbitrary type which could be unrelated to '{}'.ts(2322)
   searchParams = {
     ...searchParams
   };
