@@ -2,10 +2,12 @@
 // Table components interface definition
 // ====================================================================
 
-import {Any} from "./index";
+import type {Any} from "./index";
 
 /**
  * table data source record
+ * 
+ * @template T Type of table row item, default any object type.
  */
 export type Record<T = {
   [key: string]: Any;
@@ -38,9 +40,9 @@ type BuildInRecord<K extends keyof Any, T> = {
 };
 
 /**
- * react component table api
+ * table api
  */
-export interface RTable {
+export interface ITable {
   search: <T = Any>(...rest: Any[]) => Promise<T>;
   /**
    * 搜索条件搜索重置页码第一页，不然UI和实际搜索条件不一致导致搜索结果显示有误
@@ -51,4 +53,13 @@ export interface RTable {
    * @param state - optional reset state while reload data
    */
   reset: <T = Any, S = BuildInRecord<string, unknown>>(state?: S) => Promise<T>;
+}
+
+/**
+ * react component table api
+ * 
+ * @deprecated, use `ITable` instead
+ */
+export interface RTable extends ITable {
+
 }

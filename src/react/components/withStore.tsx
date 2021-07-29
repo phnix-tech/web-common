@@ -1,14 +1,28 @@
+import type {Action, AnyAction, Store} from "redux";
+import type {ReactReduxContextValue} from "react-redux";
+import type {Any, EmptyObject} from "../../types";
 import React, {useEffect, useRef} from "react";
-import {Action, AnyAction, Store} from "redux";
-import {Provider, ReactReduxContextValue} from "react-redux";
-import {Any, EmptyObject} from "../../types";
+import {Provider} from "react-redux";
 
+/**
+ * withStore对外暴露的属性.
+ * 
+ * @template S Type of store state.
+ * @template A Type of store action.
+ * @template C Type of store context, store use `React.Context`存储数据.
+ */
 interface IProps<
   S = Any,
   A extends Action = AnyAction,
   C = null
 > {
+  /**
+   * 内部不直接创建store, 外部需提供创建store方法, 以便内部获取store.
+   */
   createStore: () => Store<S, A>;
+  /**
+   * 可选的store context, 如果需要创建独立store, 则外部需要提供context, 不然会公用redux默认的全局context.
+   */
   context?: React.Context<C>;
 }
 

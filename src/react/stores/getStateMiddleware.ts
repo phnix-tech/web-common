@@ -1,5 +1,5 @@
-import {AnyAction, Dispatch, MiddlewareAPI} from "redux";
-import {Any} from "../../types";
+import type {AnyAction, Dispatch, MiddlewareAPI} from "redux";
+import type {Any} from "../../types";
 
 type MiddlewareFn = ({dispatch, getState}: MiddlewareAPI) => Any;
 type ReturnTypeInner = (action: AnyAction | MiddlewareFn) => AnyAction;
@@ -7,6 +7,7 @@ type ReturnType = (next: Dispatch) => ReturnTypeInner;
 
 /**
  * 异步执行action中间件
+ * 
  * @param dispatch
  * @param getState
  * @see https://cloud.tencent.com/developer/article/1467032

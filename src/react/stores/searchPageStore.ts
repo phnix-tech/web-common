@@ -1,8 +1,8 @@
+import type {Dispatch, MiddlewareAPI, Action, AnyAction} from "redux";
+import type {Any, EmptyObject} from "../../types";
+import type {ITable} from "../../types/Table";
+import type {GetStateMiddlewareDispatch, MixedDispatch, IStore} from "./index";
 import React from "react";
-import {Dispatch, MiddlewareAPI, Action, AnyAction} from "redux";
-import {Any, EmptyObject} from "../../types";
-import {RTable} from "../../types/Table";
-import {GetStateMiddlewareDispatch, MixedDispatch, IStore} from "./index";
 import createStores from "./createStore";
 import withStores from "../components/withStore";
 
@@ -12,10 +12,17 @@ enum ActionType {
   RESET
 }
 
+/**
+ * @template S Type of store state.
+ */
 interface PageStoreAction<S> extends Action<ActionType> {
   value: Partial<S>;
 }
 
+/**
+ * @template S Type of store state.
+ * @template SP Type of search params.
+ */
 interface IMapDispatchToProps<S, SP> {
   setState (state: Partial<S>): PageStoreAction<S>;
 
@@ -50,12 +57,27 @@ interface ISearchPageStore<C, S, SP, A extends Action = AnyAction> extends IStor
 
 }
 
+/**
+ * search page store state definition.
+ * 
+ * @template T Type of `table`
+ * @template SP Type of search params
+ * @template ES Type of extra params, 如果提供了该该类型, 会将其合并到store state上, 默认空对象类型.
+ */
 type IState<T, SP, ES = EmptyObject> = {
+  /**
+   * table字段, 可通过该字段主动调用table search、reset方法刷新数据.
+   */
   table: T | null;
+  /**
+   * 搜索参数.
+   */
   searchParams: SP;
 } & ES;
 
 /**
+ * 搜索页store函数, 
+ * 
  * @template SP - search params type
  * @template ES - extra state type
  * @template T - table api type
@@ -64,10 +86,10 @@ type IState<T, SP, ES = EmptyObject> = {
  * @param extraState - extra state
  * @param ctx - optional store context
  */
-export default function<
+function searchPageStore<
   SP = Record<string, unknown>,
   ES = EmptyObject,
-  T extends RTable = RTable,
+  T extends ITable = ITable,
   C = null
 > (
   searchParams: SP,
@@ -216,3 +238,5 @@ export default function<
     mapDispatchToProps
   };
 }
+
+export default searchPageStore;
