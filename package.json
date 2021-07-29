@@ -18,8 +18,8 @@
     "build-ts-esm": "tsc --project ./tsconfig-esm.json",
     "build-ts-umd": "tsc --project ./tsconfig-umd.json",
     "add-module-exports-env": "node ./scripts/add-module-exports-env.js",
-    "docs": "npx web-io-tsdoc",
-    "test": "npx web-io-jest"
+    "test": "npx web-io-jest",
+    "docs": "npx web-io-tsdoc"
   },
   "dependencies": {
     "tslib": "2.2.0"
