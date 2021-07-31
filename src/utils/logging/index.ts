@@ -1,135 +1,16 @@
-interface LEVEL_MAP {
-  readonly DEBUG: "DEBUG";
-  readonly INFO: "INFO";
-  readonly WARN: "WARN";
-  readonly ERROR: "ERROR";
-  readonly ASSERT: "ASSERT";
-  readonly TRACE: "TRACE";
-  /**
-   * `LOG` level nodejs use only
-   */
-  readonly LOG: "LOG";
-}
-
-type LEVEL = keyof LEVEL_MAP;
-
-type CONSOLE_METHOD_NAME = Lowercase<LEVEL>;
-
-// 是否浏览器环境
-const isBrowserEnv = !!(typeof window !== "undefined" && window);
-const CONSOLE_METHOD_NAME: {
-  [key in LEVEL]: Lowercase<LEVEL_MAP[key]>;
-} = {
-  DEBUG: "debug",
-  INFO: "info",
-  WARN: "warn",
-  ERROR: "error",
-  ASSERT: "assert",
-  TRACE: "trace",
-  LOG: "log"
-};
+import type {Level, ConsoleMethodName} from "./types";
+import {isBrowserEnv, CONSOLE_METHOD_NAME, LEVEL} from "./constant";
+import fmtLogMessage from "./fmtLogMessage";
+import hasSendFlagInLogParam from "./hasSendFlagInLogParam";
 
 /**
- * @param methodName console method name
- * @param level
- * @param msgs Array of messages
- * @ignore
- */
-function logFn (
-  methodName: CONSOLE_METHOD_NAME,
-  level: LEVEL,
-  msgs: unknown[]
-) {
-  // convert array like arguments to Array for use array methods
-  msgs = Array.prototype.slice.call(msgs);
-
-  const isNotLogging = (
-    !Logging.ENABLED ||
-    msgs.length <= 0 ||
-    typeof console !== "object"
-  );
-
-  // error log send to server in default
-  // otherwise false
-  const isSend = hasSendFlagInLogParam(msgs) ?
-    msgs.pop() as boolean : level === Logging.LEVEL.ERROR;
-
-  msgs = fmtLogMessage(level, msgs);
-  // send logging firstly
-  sendLogToServer(level, msgs, isSend, Logging.SEND_TO_SERVER);
-
-  if (isNotLogging) {
-    return;
-  }
-
-  /* eslint-disable no-console */
-  methodName = methodName.toLowerCase() as CONSOLE_METHOD_NAME;
-
-  // assert方法第一个参数为boolean处理
-  if (methodName === "assert") {
-    const [condition, msg, ...assertMsgs] = msgs;
-    switch (typeof console.assert) {
-      case "function":
-        try {
-          // lib.dom.d.ts和@types/node console.d.ts类型定义不同
-          console.assert.apply(console, [condition as boolean, msg as string, ...assertMsgs]);
-        } catch (e) {
-          console.warn(e);
-        }
-        break;
-      // old ie
-      case "object":
-        try {
-          // join varargs message in space separated
-          console.assert(condition as boolean, Array.prototype.join.call(assertMsgs, " "));
-        } catch (e) {
-          console.warn(e);
-        }
-        break;
-    }
-    return;
-  }
-
-  const method = console[methodName];
-  const type = typeof method;
-
-  switch (type) {
-    case "function":
-      try {
-        method.apply(console, msgs);
-      } catch (e) {
-        console.warn(e);
-      }
-      break;
-    // old ie
-    case "object":
-      try {
-        // join varargs message in space separated
-        method(Array.prototype.join.call(msgs, " "));
-      } catch (e) {
-        console.warn(e);
-      }
-      break;
-  }
-  /* eslint-enable no-console */
-}
-
-/**
- * Logging class
+ * Logging class.
  * 
  * @see https://developer.chrome.com/devtools/docs/console-api
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Console
  */
 class Logging {
-  static LEVEL: LEVEL_MAP = {
-    DEBUG: "DEBUG",
-    INFO: "INFO",
-    WARN: "WARN",
-    ERROR: "ERROR",
-    ASSERT: "ASSERT",
-    TRACE: "TRACE",
-    LOG: "LOG"
-  };
+  static LEVEL = LEVEL;
 
   /**
    * control logging message or not flag  
@@ -160,7 +41,7 @@ class Logging {
    * @param msgs logging messages, note the first two elements are formtted time & level tag  
    * if you don't want it, you can remove it
    */
-  static SEND_TO_SERVER = function (level: LEVEL, msgs: unknown[]) {
+  static SEND_TO_SERVER = function (level: Level, msgs: unknown[]) {
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "/p/log?_=" + new Date().getTime(), true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -172,7 +53,7 @@ class Logging {
   };
 
   /**
-   * logging message using Console.trace api if supported
+   * logging message using Console.trace api if supported.
    * 
    * @param msgs
    */
@@ -317,98 +198,100 @@ class Logging {
 }
 
 /**
- * append time & level tag in the beginning of log message  
- * e.g. [2017/06/30 18:00:46.423 +0800] INFO log message
+ * @param methodName console method name.
+ * @param level logging level.
+ * @param msgs Array of messages.
+ */
+function logFn (
+  methodName: ConsoleMethodName,
+  level: Level,
+  msgs: unknown[]
+) {
+  // convert array like arguments to Array for use array methods
+  msgs = Array.prototype.slice.call(msgs);
+
+  const isNotLogging = (
+    !Logging.ENABLED ||
+    msgs.length <= 0 ||
+    typeof console !== "object"
+  );
+
+  // error log send to server in default
+  // otherwise false
+  const isSend = hasSendFlagInLogParam(msgs) ?
+    msgs.pop() as boolean : level === LEVEL.ERROR;
+
+  msgs = fmtLogMessage(level, msgs);
+  // send logging firstly
+  sendLogToServer(level, msgs, isSend, Logging.SEND_TO_SERVER);
+
+  if (isNotLogging) {
+    return;
+  }
+
+  /* eslint-disable no-console */
+  methodName = methodName.toLowerCase() as ConsoleMethodName;
+
+  // assert方法第一个参数为boolean处理
+  if (methodName === "assert") {
+    const [condition, msg, ...assertMsgs] = msgs;
+    switch (typeof console.assert) {
+      case "function":
+        try {
+          // lib.dom.d.ts和@types/node console.d.ts类型定义不同
+          console.assert.apply(console, [condition as boolean, msg as string, ...assertMsgs]);
+        } catch (e) {
+          console.warn(e);
+        }
+        break;
+      // old ie
+      case "object":
+        try {
+          // join varargs message in space separated
+          console.assert(condition as boolean, Array.prototype.join.call(assertMsgs, " "));
+        } catch (e) {
+          console.warn(e);
+        }
+        break;
+    }
+    return;
+  }
+
+  const method = console[methodName];
+  const type = typeof method;
+
+  switch (type) {
+    case "function":
+      try {
+        method.apply(console, msgs);
+      } catch (e) {
+        console.warn(e);
+      }
+      break;
+    // old ie
+    case "object":
+      try {
+        // join varargs message in space separated
+        method(Array.prototype.join.call(msgs, " "));
+      } catch (e) {
+        console.warn(e);
+      }
+      break;
+  }
+  /* eslint-enable no-console */
+}
+
+/**
+ * send logs to server,
+ * ONLY in browser env.
  * 
- * @ignore
- * @param level
- * @param msgs Array of messages
- * @returns Array of messages
- */
-function fmtLogMessage (level: LEVEL, msgs: unknown[]) {
-  if (msgs.length <= 0) {
-    return msgs;
-  }
-
-  const date = new Date();
-  const timezoneOffset = date.getTimezoneOffset();
-  const timeZone = (timezoneOffset < 0 ? "+" : "-") +
-    ("00" + Math.floor(Math.abs(timezoneOffset) / 60)).slice(-2) +
-    ("00" + (Math.abs(timezoneOffset) % 60)).slice(-2);
-
-  const fmt = (el: number) => el < 10 ? "0" + el.toString() : el;
-  const hasPadMethod = !!level.padEnd;
-  // time format for splunk extract event
-  // e.g. [2017/06/30 18:00:46.423 +0800]
-  let formattedTime = [
-    date.getFullYear(),
-    date.getMonth() + 1,
-    date.getDate()
-  ].map(fmt).join("/") + " " +
-  [
-    date.getHours(),
-    date.getMinutes(),
-    date.getSeconds()
-  ].map(fmt).join(":") + "." +
-  (hasPadMethod ?
-    date.getMilliseconds().toString().padStart(3, "0") :
-    date.getMilliseconds()
-  ) + " " + timeZone;
-
-  formattedTime = "[" + formattedTime + "]";
-
-  msgs = msgs.map(e => e instanceof Error ? e.toString() + "\n" + "TRACE: " + e.stack + "\n" : e);
-  msgs = ([formattedTime, hasPadMethod ? level.padEnd(5, " ") : level] as typeof msgs).concat(msgs);
-
-  // ONLY in browser env
-  if (
-    isBrowserEnv &&
-    level === Logging.LEVEL.ERROR
-  ) {
-    msgs = msgs.concat([
-      // separator line
-      "",
-      "UA: " + navigator.userAgent,
-      "URL: " + location.href
-    ].join("\n"));
-  }
-
-  return msgs;
-}
-
-/**
- * last param as send to server flag
- * browser env ONLY
- * @ignore
- * @param msgs
- * @returns
- */
-function hasSendFlagInLogParam (msgs: unknown[]) {
-  let hasFlag = false;
-  if (!isBrowserEnv) {
-    return hasFlag;
-  }
-
-  // two params at least
-  if (msgs.length > 1 &&
-    typeof (msgs[msgs.length - 1]) === "boolean") {
-    hasFlag = true;
-  }
-
-  return hasFlag;
-}
-
-/**
- * send logs to server
- * ONLY in browser env
- * @ignore
- * @param level
- * @param msgs
- * @param isSend - optional flag for control send log to server
- * @param sendToServer send logging to server handler
+ * @param level logging level.
+ * @param msgs Array of messages.
+ * @param isSend Optional flag for control send log to server.
+ * @param sendToServer Send logging to server handler.
  */
 function sendLogToServer (
-  level: LEVEL,
+  level: Level,
   msgs: unknown[],
   isSend: boolean,
   sendToServer: typeof Logging.SEND_TO_SERVER
@@ -424,7 +307,7 @@ function sendLogToServer (
 }
 
 /**
- * global error handler
+ * global error handler.
  * 
  * @param msg 
  * @param url 
@@ -456,7 +339,7 @@ function errorHandler (
 
   logging.error(text.join("\n"));
   // return true prevents the firing of the default event handler.
-  // script error url is N/A, enable default event handler for debug
+  // script error url is N/A, enable default event handler for debug.
   return logging.ddeh() !== null ? logging.ddeh() : (url !== "N/A");
 }
 

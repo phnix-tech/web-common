@@ -7,6 +7,7 @@ const browserMap = (isBrowserEnv ? browserDetect(navigator.userAgent) : {}) || {
 
 /**
  * check if mobile, Credits: http://goo.gl/SfjfGz
+ * 
  * @param ua user agent
  */
 function isMobile (ua?: string) {
