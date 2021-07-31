@@ -13,33 +13,33 @@ class Logging {
   static LEVEL = LEVEL;
 
   /**
-   * control logging message or not flag  
-   * default false, browser env: false, nodejs env: true
+   * control logging message or not flag.  
+   * default false, browser env: false, nodejs env: true.
    */
   static ENABLED = !isBrowserEnv;
 
   /**
-   * true prevents the firing of the default event handler  
-   * default true
+   * true prevents the firing of the default event handler,
+   * default true.
    * @see https://goo.gl/GPwvqj
    */
   static DDEH = true;
 
   /**
-   * send logging to server flag, default not send log to server  
-   * note: if set `true`, only send `ERROR` level log to server  
-   * you can use last param as boolean flag control send log to server  
-   * nodejs env no need send logging  
-   * useful for disable it if debug error  
+   * send logging to server flag, default not send log to server,
+   * note: if set `true`, only send `ERROR` level log to server.  
+   * you can use last param as boolean flag control send log to server,  
+   * nodejs env no need send logging,  
+   * useful for disable it if debug error.
    */
   static SEND = false;
 
   /**
-   * send logging to server handler, you can use it implement your own logging logic
+   * send logging to server handler, you can use it implement your own logging logic.
    * 
    * @param level logging level
-   * @param msgs logging messages, note the first two elements are formtted time & level tag  
-   * if you don't want it, you can remove it
+   * @param msgs logging messages, note the first two elements are formtted time & level tag,  
+   * if you don't want it, you can remove it.
    */
   static SEND_TO_SERVER = function (level: Level, msgs: unknown[]) {
     const xhr = new XMLHttpRequest();
@@ -144,7 +144,7 @@ class Logging {
   }
 
   /**
-   * @param ddeh whether disable default event hanndler or not
+   * @param ddeh whether disable default event hanndler or not.
    */
   ddeh (ddeh?: boolean | null) {
     if (arguments.length === 0) {
@@ -160,7 +160,7 @@ class Logging {
   }
 
   /**
-   * @param send whether send loging to server or not
+   * @param send whether send loging to server or not.
    */
   send (send?: boolean) {
     if (arguments.length === 0) {
@@ -173,7 +173,7 @@ class Logging {
   }
 
   /**
-   * ensure resgiter window onerror event for capture global error events
+   * ensure resgiter window onerror event for capture global error events.
    */
   ensureErrorHandler () {
     // window.addEventListener("error", errorHandler);
@@ -186,7 +186,7 @@ class Logging {
 
   /**
    * 
-   * @param sendToServer send logging to server handler
+   * @param sendToServer send logging to server handler.
    * @returns 
    */
   sendToServer (sendToServer?: typeof Logging.SEND_TO_SERVER) {

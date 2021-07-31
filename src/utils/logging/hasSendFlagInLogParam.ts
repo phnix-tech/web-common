@@ -1,10 +1,9 @@
 import {isBrowserEnv} from "./constant";
 
 /**
- * last param as send to server flag
- * browser env ONLY
+ * last param as send to server flag,
+ * browser env ONLY.
  * 
- * @ignore
  * @param msgs
  * @returns
  */
@@ -23,4 +22,7 @@ function hasSendFlagInLogParam (msgs: unknown[]) {
   return hasFlag;
 }
 
+/**
+ * @ignore
+ */
 export default hasSendFlagInLogParam;

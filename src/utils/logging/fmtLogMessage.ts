@@ -2,13 +2,12 @@ import type {Level} from "./types";
 import {isBrowserEnv, LEVEL} from "./constant";
 
 /**
- * append time & level tag in the beginning of log message  
- * e.g. [2017/06/30 18:00:46.423 +0800] INFO log message
+ * append time & level tag in the beginning of log message,
+ * e.g. `[2017/06/30 18:00:46.423 +0800] INFO log message`.
  * 
- * @ignore
- * @param level
- * @param msgs Array of messages
- * @returns Array of messages
+ * @param level logging level.
+ * @param msgs Array of messages.
+ * @returns Array of messages.
  */
 function fmtLogMessage (level: Level, msgs: unknown[]) {
   if (msgs.length <= 0) {

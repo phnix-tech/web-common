@@ -6,7 +6,7 @@ interface LevelMap {
   readonly ASSERT: "ASSERT";
   readonly TRACE: "TRACE";
   /**
-   * `LOG` level nodejs use only
+   * `LOG` level nodejs use only.
    */
   readonly LOG: "LOG";
 }
