@@ -9,16 +9,12 @@ interface Resolve {
 }
 
 /**
- * git子模块引用：假设当前路径为`src/common/build`
+ * git子模块引用：假设当前路径为`src/common/build`,
  * npm包引用：假设当前位置
  * `node_modules/@web-io/build/lib/scripts`或
- * `node_modules/@web-io/common/lib/build`
+ * `node_modules/@web-io/common/lib/build`.
  */
-let projectRoot = path.join(__dirname, "../../..");
-// npm包引用
-if (projectRoot.includes(`${path.sep}node_modules${path.sep}`)) {
-  projectRoot = path.join(projectRoot, "../..");
-}
+const projectRoot = process.cwd();
 
 /**
  * 基于项目根路径解析相对路径
@@ -61,4 +57,4 @@ resolve.require = function <T = Any>(modulePath: string) {
  */
 resolve.projectRoot = undefined;
 
-export = resolve;
+export default resolve;
