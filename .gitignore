@@ -11,12 +11,12 @@ node_modules/
 *.njsproj
 *.sln
 
-# eslint and stylelint cache files
-build/.cache/
-
 dist/
 lib/
 es/
 
 # typedoc
 docs/
+
+# npm pack file
+/*.tgz
